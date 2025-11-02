@@ -14,7 +14,11 @@ $text_translations=[
         'viewBack'=>'Back to homepage',
         'viewText'=>'Use this page to view a food item.',
         'viewDelete'=>'Delete',
-        'viewEdit'=>'Edit'
+        'viewEdit'=>'Edit',
+        'createTitle'=> 'Create new food item | Graille',
+        'createH1'=> 'Create new food item ',
+        'createSuccess'=> 'Food item successfully added !',
+        'createError'=>'The form contains errors :'
     ],
     'fr'=> [
         'homeTitle'=> 'Page d\'accueil | Graille',
@@ -30,7 +34,11 @@ $text_translations=[
         'viewBack'=>'Retour à l\'accueil',
         'viewText'=>'Utilise cette page pour visualiser un aliment.',
         'viewDelete'=>'Supprimer',
-        'viewEdit'=>'Mettre à jour'
+        'viewEdit'=>'Mettre à jour',
+        'createTitle'=> 'Créer un nouvel aliment | Graille',
+        'createH1'=> 'Créer un nouvel aliment',
+        'createSuccess'=> 'L\'aliment a été ajouté avec succès !',
+        'createError'=>'Le formulaire contient des erreurs :'
 
     ]
     ];
@@ -47,7 +55,7 @@ $text_translations=[
         'createShop'=> 'Le nom du magasin doit contenir au moins 2 caractères.',
         'createQty'=> 'La quantité doit être un nombre positif.',
         'createUnit'=> 'L\'unité est obligatoire.',
-        'createSpot'=> 'Un emplacement est obligatoire.'
+        'createSpot'=> 'L\'emplacement est obligatoire.'
     ]
     ];
 
