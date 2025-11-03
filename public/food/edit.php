@@ -64,23 +64,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             <label for="unit">Unité :</label>
             <select name="unit" id="unit">
-                <?php foreach (Food::UNITS as $key => $value) { ?>
+                <?php foreach (Food::UNIT as $key => $value) { ?>
                     <option value="<?= $key ?>" <?= $food['unit'] == $key ? 'selected' : '' ?>><?= $value ?></option>
                 <?php } ?>
             </select>
 
             <label for="spot">Emplacement :</label>
             <select name="spot" id="spot">
-                <?php foreach (Food::SPOTS as $key => $value) { ?>
+                <?php foreach (Food::SPOT as $key => $value) { ?>
                     <option value="<?= $key ?>" <?= $food['spot'] == $key ? 'selected' : '' ?>><?= $value ?></option>
                 <?php } ?>
             </select>
 
             <label for="peremption">Date de péremption :</label>
             <input type="date" name="peremption" id="peremption" value="<?= htmlspecialchars($food['peremption']) ?>" />
-
-            <label for="notes">Notes :</label>
-            <textarea name="notes" id="notes" rows="4" cols="50"><?= htmlspecialchars($food['notes']) ?></textarea>
 
             <div style="margin-top: 1rem; display: flex; gap: .5em;">
                 <button type="submit">Enregistrer les modification</button>
