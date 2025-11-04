@@ -3,7 +3,7 @@ const DATABASE_CONFIGURATION_FILE = __DIR__ . '/../../src/config/database.ini';
 require __DIR__ . '/../../src/utils/autoloader.php';
 
 // TRANSLATIONS
-require_once 'translations.php';
+require_once '../assets/translations.php';
 
 const DEFAULT_LANGUAGE = 'fr';
 $language = DEFAULT_LANGUAGE;
@@ -150,18 +150,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <meta name="color-scheme" content="light dark">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
 
-    <title>$text_translations[$language]['createTitle']</title>
+    <title><?=$text_translations[$language]['createTitle']?></title>
 </head>
 
 <body>
     <main class="container">
-        <h1>$text_translations[$language]['createH1']</h1>
+        <h1><?$text_translations[$language]['createH1']?></h1>
 
         <?php if ($_SERVER["REQUEST_METHOD"] === "POST") { ?>
             <?php if (empty($errors)) { ?>
-                <p style="color: green;">$text_translations[$language]['createSuccess']</p>
+                <p style="color: green;"><?$text_translations[$language]['createSuccess']?></p>
             <?php } else { ?>
-                <p style="color: red;">$text_translations[$language]['createError']</p>
+                <p style="color: red;"><?$text_translations[$language]['createError']?></p>
                 <ul>
                     <?php foreach ($errors as $error) { ?>
                         <li><?php echo $error; ?></li>

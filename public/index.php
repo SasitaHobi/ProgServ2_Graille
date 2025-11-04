@@ -1,4 +1,7 @@
 <?php
+
+require_once 'assets/translations.php';
+
 // Constantes pour la gestion des cookies
 const COOKIE_LIFETIME = 60 * 60 * 24 * 30; // 30 jours
 const COOKIE_NAME = 'language';
@@ -36,7 +39,7 @@ $language = $_COOKIE[COOKIE_NAME] ?? DEFAULT_LANGUAGE;
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
     <link rel="stylesheet" href="css/custom.css">
 
-    <title>$text_translations[$language]['homeTitle']</title>
+    <title><?=$text_translations[$language]['homeTitle']?></title>
 </head>
 
 <body>
@@ -57,18 +60,18 @@ $language = $_COOKIE[COOKIE_NAME] ?? DEFAULT_LANGUAGE;
         </form>
 
         <form method="POST">
-            <button type="submit" name="delete_cookie">Supprimer</button>
+            <button type="submit" name="delete_cookie"><?=$text_translations[$language]['viewDelete']?></button>
         </form>
     </header>
 
     <!-- accueil normal -->
     <main class="container">
-        <h1>$text_translations[$language]['homeH1']</h1>
+        <h1><?=$text_translations[$language]['homeH1']?></h1>
 
-        <p>$text_translations[$language]['homeText'].</p>
+        <p><?=$text_translations[$language]['homeText']?></p>
 
 
-        <p><a href="food/index.php"><button>$text_translations[$language]['homeButton']</button></a></p>
+        <p><a href="food/index.php"><button><?=$text_translations[$language]['homeButton']?></button></a></p>
     </main>
 </body>
 

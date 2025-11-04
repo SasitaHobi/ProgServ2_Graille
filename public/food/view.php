@@ -1,5 +1,6 @@
 <?php
 require __DIR__ . '/../../src/utils/autoloader.php';
+require_once '/../assets/translations.php';
 
 use Food\FoodManager;
 use Food\Food;
