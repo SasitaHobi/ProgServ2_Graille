@@ -199,7 +199,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <option value="cupboard">$att_translations[$language]['cupboard']</option>
                 <option value="fridge">$att_translations[$language]['fridge']</option>
                 <option value="freezer">$att_translations[$language]['freezer']</option>
-                <option value="cellar">$att_translations[$language]['cellar']</option>
+                <option value="cellar"> $att_translations[$language]['cellar']</option>
 
             </select>
             <button type="submit">$att_translations[$language]['createH1']</button>
