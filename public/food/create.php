@@ -1,18 +1,8 @@
 <?php
 const DATABASE_CONFIGURATION_FILE = __DIR__ . '/../../src/config/database.ini';
 require __DIR__ . '/../../src/utils/autoloader.php';
-
-// TRANSLATIONS
-require_once '../assets/translations.php';
-
-const DEFAULT_LANGUAGE = 'fr';
-$language = DEFAULT_LANGUAGE;
-if (isset($_COOKIE['language'])&& array_key_exists($_COOKIE['language'], $text_translations)) {
-    $language = $_COOKIE['language'];
-}
-
-echo $text_translations[$language]['welcome'];
-
+require_once __DIR__ . '/../assets/translations.php';
+require_once __DIR__ . '/../assets/language.php';
 
 // Documentation : https://www.php.net/manual/fr/function.parse-ini-file.php
 $config = parse_ini_file(DATABASE_CONFIGURATION_FILE, true);
@@ -155,13 +145,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 <body>
     <main class="container">
-        <h1><?$text_translations[$language]['createH1']?></h1>
+        <h1><?=$text_translations[$language]['createH1']?></h1>
 
         <?php if ($_SERVER["REQUEST_METHOD"] === "POST") { ?>
             <?php if (empty($errors)) { ?>
-                <p style="color: green;"><?$text_translations[$language]['createSuccess']?></p>
+                <p style="color: green;"><?=$text_translations[$language]['createSuccess']?></p>
             <?php } else { ?>
-                <p style="color: red;"><?$text_translations[$language]['createError']?></p>
+                <p style="color: red;"><?=$text_translations[$language]['createError']?></p>
                 <ul>
                     <?php foreach ($errors as $error) { ?>
                         <li><?php echo $error; ?></li>
@@ -172,37 +162,37 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         <!-- à changer -->
         <form action="create.php" method="POST">
-            <label for="name">$att_translations[$language]['name']</label>
+            <label for="name"><?=$att_translations[$language]['name']?></label>
             <input type="text" id="name" name="name" value="<?= htmlspecialchars($name ?? '') ?>" required minlength="2">
 
-            <label for="peremption">$att_translations[$language]['peremption']</label>
+            <label for="peremption"><?=$att_translations[$language]['peremption']?></label>
             <input type="date" id="peremption" name="peremption" value="<?= htmlspecialchars($peremption ?? '') ?>" required>
 
-            <label for="shop">$att_translations[$language]['shop']</label>
+            <label for="shop"><?=$att_translations[$language]['shop']?></label>
             <input type="text" id="shop" name="shop" value="<?= htmlspecialchars($shop ?? '') ?>">
 
-            <label for="qty">$att_translations[$language]['qty']</label>
+            <label for="qty"><?=$att_translations[$language]['qty']?></label>
             <input type="number" id="qty" name="qty" value="<?= htmlspecialchars($qty ?? '') ?>" required min="0">
 
-            <label for="unit">$att_translations[$language]['unit']</label>
+            <label for="unit"><?=$att_translations[$language]['unit']?></label>
             <select id="unit" name="unit" required>
-                <option value="pack">$att_translations[$language]['pack']</option>
-                <option value="piece">$att_translations[$language]['piece']</option>
-                <option value="ml">$att_translations[$language]['ml']</option>
-                <option value="l">$att_translations[$language]['l']</option>
-                <option value="g">$att_translations[$language]['g']</option>
-                <option value="kilo">$att_translations[$language]['kilo']</option>
+                <option value="pack"><?=$att_translations[$language]['pack']?></option>
+                <option value="piece"><?=$att_translations[$language]['piece']?></option>
+                <option value="ml"><?=$att_translations[$language]['ml']?></option>
+                <option value="l"><?=$att_translations[$language]['l']?></option>
+                <option value="g"><?=$att_translations[$language]['g']?></option>
+                <option value="kilo"><?=$att_translations[$language]['kilo']?></option>
             </select>
 
-            <label for="spot">$att_translations[$language]['spot']</label>
+            <label for="spot"><?=$att_translations[$language]['spot']?></label>
             <select id="spot" name="spot" required>
-                <option value="cupboard">$att_translations[$language]['cupboard']</option>
-                <option value="fridge">$att_translations[$language]['fridge']</option>
-                <option value="freezer">$att_translations[$language]['freezer']</option>
-                <option value="cellar"> $att_translations[$language]['cellar']</option>
+                <option value="cupboard"><?=$att_translations[$language]['cupboard']?></option>
+                <option value="fridge"><?=$att_translations[$language]['fridge']?></option>
+                <option value="freezer"><?=$att_translations[$language]['freezer']?></option>
+                <option value="cellar"><?=$att_translations[$language]['cellar']?></option>
 
             </select>
-            <button type="submit">$att_translations[$language]['createH1']</button>
+            <button type="submit"><?=$text_translations[$language]['createH1']?></button>
         </form>
     </main>
 </body>

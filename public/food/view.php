@@ -1,18 +1,20 @@
 <?php
 require __DIR__ . '/../../src/utils/autoloader.php';
-require_once '/../assets/translations.php';
+require_once __DIR__ . '/../assets/translations.php';
+require_once __DIR__ . '/../assets/language.php';
 
 use Food\FoodManager;
 use Food\Food;
 
 $foodManager = new FoodManager();
+$food;
 
 // On vérifie si l'ID de l'aliment est passé dans l'URL
 if (isset($_GET["id"])) {
     $foodId = $_GET["id"];
 
     // On récupère l'aliment correspondant à l'ID
-    $food = $foodManager->getFood($foodId);
+    $food = $foodManager->getFoodById($foodId);
 
     if (!$food) {
         header("Location: index.php");
@@ -47,16 +49,17 @@ if (isset($_GET["id"])) {
         <!-- A VERIFIER, MODIF FROM PETS TO FOOD -->
         <form>
             <label for="name"><?=$att_translations[$language]['name']?></label>
-            <input type="text" id="name" value="<?= htmlspecialchars($food["name"]) ?>" disabled />
+            <input type="text" id="name" value="<?= htmlspecialchars($food->getName())?>" disabled />
 
-             <label for="peremption"><?=$att_translations[$language]['peremption']?></label>
-            <input type="date" id="peremption" value="<?= htmlspecialchars($food['peremption']) ?>" disabled />
+            <!-- est ce ok de pas mettre htmlspecialchars -->
+            <label for="peremption"><?=$att_translations[$language]['peremption']?></label>
+            <input type="date" id="peremption" value="<?= $food->getPeremption() ?>" disabled />
 
             <label for="shop"><?=$att_translations[$language]['shop']?></label>
-            <input type="text" id="shop" value="<?= htmlspecialchars($food['shop']) ?>" disabled />
+            <input type="text" id="shop" value="<?= htmlspecialchars($food->getShop())?>" disabled />
 
             <label for="qty"><?=$att_translations[$language]['qty']?></label>
-            <input type="number" id="qty" value="<?= htmlspecialchars($food['qty']) ?>" disabled />
+            <input type="number" id="qty" value="<?= htmlspecialchars($food->getQty())?>" disabled />
 
             <label for="unit"><?=$att_translations[$language]['unit']?></label>
             <select id="unit" disabled>

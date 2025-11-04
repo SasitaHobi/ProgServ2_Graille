@@ -46,6 +46,40 @@ class FoodManager implements FoodManagerInterface
         return $food;
     }
 
+    public function getFoodById(int $id): ?Food
+{
+    // Définition de la requête SQL pour récupérer un aliment par ID
+    $sql = "SELECT * FROM food WHERE id = :id";
+    
+    // Préparation de la requête SQL
+    $stmt = $this->database->getPdo()->prepare($sql);
+    
+    // Lien avec le paramètre
+    $stmt->bindValue(':id', $id);
+    
+    // Exécution de la requête SQL
+    $stmt->execute();
+    
+    // Récupération de l'aliment
+    $foodData = $stmt->fetch();
+    
+    // Si l'aliment n'existe pas, retourner null
+    if (!$foodData) {
+        return null;
+    }
+    
+    // Transformation du tableau associatif en objet Food
+    return new Food(
+        $foodData['id'],
+        $foodData['name'],
+        new \DateTime($foodData['peremption']),
+        $foodData['shop'],
+        $foodData['qty'],
+        $foodData['unit'],
+        $foodData['spot']
+    );
+}
+
     public function addFood(Food $food): int
     {
         // Définition de la requête SQL pour ajouter un aliment

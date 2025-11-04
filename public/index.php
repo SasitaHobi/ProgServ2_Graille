@@ -1,11 +1,8 @@
 <?php
 
 require_once 'assets/translations.php';
+require_once 'assets/language.php';
 
-// Constantes pour la gestion des cookies
-const COOKIE_LIFETIME = 60 * 60 * 24 * 30; // 30 jours
-const COOKIE_NAME = 'language';
-const DEFAULT_LANGUAGE = 'fr';
 
 // Gestion de la suppression du cookie
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_cookie'])) {
@@ -24,8 +21,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['language'])) {
     exit;
 }
 
-// Récupération de la préférence utilisateur depuis le cookie
-$language = $_COOKIE[COOKIE_NAME] ?? DEFAULT_LANGUAGE;
 ?>
 
 

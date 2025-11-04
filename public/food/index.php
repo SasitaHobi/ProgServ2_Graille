@@ -1,6 +1,7 @@
 <?php
 const DATABASE_CONFIGURATION_FILE = __DIR__ . '/../../src/config/database.ini';
-require_once '/../assets/translations.php';
+require_once __DIR__ . '/../assets/translations.php';
+require_once __DIR__ . '/../assets/language.php';
 
 // Documentation : https://www.php.net/manual/fr/function.parse-ini-file.php
 $config = parse_ini_file(DATABASE_CONFIGURATION_FILE, true);
@@ -93,7 +94,7 @@ $food = $stmt->fetchAll();
                         <td><?= htmlspecialchars($f['peremption']) ?></td>
                         <td><?= htmlspecialchars($f['shop']) ?></td>
                         <td><?= htmlspecialchars($f['qty']) ?></td>
-                        <td><?= htmlspecialchars($f['unit']) ?></td>
+                        <td><?= htmlspecialchars($att_translations[$language][$f['unit']]) ?></td>
                         <td><?= htmlspecialchars($f['spot']) ?></td>
                         <td>
                             <a href="view.php?id=<?= htmlspecialchars($f["id"]) ?>">
