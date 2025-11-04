@@ -30,8 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         "qty" => $_POST["qty"] ?? 0,
         "unit" => $_POST["unit"] ?? "",
         "spot" => $_POST["spot"] ?? "",
-        "peremption" => $_POST["peremption"] ?? "",
-        "notes" => $_POST["notes"] ?? ","
+        "peremption" => $_POST["peremption"] ?? ""
     ];
 }
 ?>
