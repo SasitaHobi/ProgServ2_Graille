@@ -62,26 +62,26 @@ $food = $stmt->fetchAll();
     <meta name="color-scheme" content="light dark">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
 
-    <title>Gestion des aliments | MyApp</title>
+    <title>$text_translations[$language]['indexTitle']</title>
 </head>
 
 <body>
     <main class="container">
-        <h1>Gestion des aliments</h1>
+        <h1>$text_translations[$language]['indexH1'</h1>
 
-        <h2>Liste des aliments</h2>
+        <h2>$text_translations[$language]['indexH2']</h2>
 
-        <p><a href="create.php"><button>Ajouter un nouvel aliment</button></a></p>
+        <p><a href="create.php"><button>$text_translations[$language]['indexButton']</button></a></p>
 
         <table>
             <thead>
                 <tr>
-                    <th>Nom</th>
-                    <th>Date de péremption</th>
-                    <th>Magasin</th>
-                    <th>Quantité</th>
-                    <th>Unité</th>
-                    <th>Emplacement</th>
+                    <th>$att_translations[$language]['name']</th>
+                    <th>$att_translations[$language]['peremption']</th>
+                    <th>$att_translations[$language]['shop']</th>
+                    <th>$att_translations[$language]['qty']</th>
+                    <th>$att_translations[$language]['unit']</th>
+                    <th>$att_translations[$language]['spot']</th>
 
                 </tr>
             </thead>
@@ -96,12 +96,12 @@ $food = $stmt->fetchAll();
                         <td><?= htmlspecialchars($f['spot']) ?></td>
                         <td>
                             <a href="view.php?id=<?= htmlspecialchars($f["id"]) ?>">
-                                <button type="button">Visualiser</button>
+                                <button type="button">$text_translations[$language]['viewButton']</button>
                             </a>
                         </td>
                         <td>
                             <a href="delete.php?id=<?= htmlspecialchars($f["id"]) ?>">
-                                <button type="button">Supprimer</button>
+                                <button type="button">$text_translations[$language]['viewDelete']</button>
                             </a>
                         </td>
                     </tr>
