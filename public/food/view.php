@@ -46,14 +46,14 @@ if (isset($_GET["id"])) {
         <p><a href="index.php"><?=$text_translations[$language]['viewBack']?></a></p>
         <p><?=$text_translations[$language]['viewText']?></p>
 
-        <!-- A VERIFIER, MODIF FROM PETS TO FOOD -->
+        
         <form>
             <label for="name"><?=$att_translations[$language]['name']?></label>
             <input type="text" id="name" value="<?= htmlspecialchars($food->getName())?>" disabled />
 
-            <!-- est ce ok de pas mettre htmlspecialchars -->
+          
             <label for="peremption"><?=$att_translations[$language]['peremption']?></label>
-            <input type="date" id="peremption" value="<?= $food->getPeremption() ?>" disabled />
+            <input type="date" id="peremption" value="<?= htmlspecialchars ($food->getPeremption()->format('d-m-y')) ?>" disabled />
 
             <label for="shop"><?=$att_translations[$language]['shop']?></label>
             <input type="text" id="shop" value="<?= htmlspecialchars($food->getShop())?>" disabled />

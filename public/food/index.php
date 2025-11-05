@@ -64,46 +64,55 @@ $food = $stmt->fetchAll();
     <meta name="color-scheme" content="light dark">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
 
-    <title><?=$text_translations[$language]['indexTitle']?></title>
+    <title><?= $text_translations[$language]['indexTitle'] ?></title>
 </head>
 
 <body>
     <main class="container">
-        <h1><?=$text_translations[$language]['indexH1']?></h1>
+        <h1><?= $text_translations[$language]['indexH1'] ?></h1>
 
-        <h2><?=$text_translations[$language]['indexH2']?></h2>
+        <h2><?= $text_translations[$language]['indexH2'] ?></h2>
 
-        <p><a href="create.php"><button><?=$text_translations[$language]['indexButton']?></button></a></p>
+        <p><a href="create.php"><button><?= $text_translations[$language]['indexButton'] ?></button></a></p>
 
         <table>
             <thead>
                 <tr>
-                    <th><?=$att_translations[$language]['name']?></th>
-                    <th><?=$att_translations[$language]['peremption']?></th>
-                    <th><?=$att_translations[$language]['shop']?></th>
-                    <th><?=$att_translations[$language]['qty']?></th>
-                    <th><?=$att_translations[$language]['unit']?></th>
-                    <th><?=$att_translations[$language]['spot']?></th>
+                    <th><?= $att_translations[$language]['name'] ?></th>
+                    <th><?= $att_translations[$language]['peremption'] ?></th>
+                    <th><?= $att_translations[$language]['shop'] ?></th>
+                    <th><?= $att_translations[$language]['qty'] ?></th>
+                    <th><?= $att_translations[$language]['unit'] ?></th>
+                    <th><?= $att_translations[$language]['spot'] ?></th>
 
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($food as $f) { ?>
                     <tr>
-                        <td><?= htmlspecialchars($f['name']) ?></td>
-                        <td><?= htmlspecialchars($f['peremption']) ?></td>
-                        <td><?= htmlspecialchars($f['shop']) ?></td>
-                        <td><?= htmlspecialchars($f['qty']) ?></td>
+                        <td><?= htmlspecialchars($att_translations[$language][$f['name']]) ?></td>
+                        <td><?= htmlspecialchars($att_translations[$language][$f['peremption']]) ?></td>
+                        <td><?= htmlspecialchars($att_translations[$language][$f['shop']]) ?></td>
+                        <!-- test shop -->
+                        <td><?php if (isset($f['shop'])) {
+                                echo  htmlspecialchars($att_translations[$language][$f['shop']]);
+                            } else {
+                                echo "";
+                            }
+                            ?></td>
+
+
+                        <td><?= htmlspecialchars($att_translations[$language][$f['qty']]) ?></td>
                         <td><?= htmlspecialchars($att_translations[$language][$f['unit']]) ?></td>
-                        <td><?= htmlspecialchars($f['spot']) ?></td>
+                        <td><?= htmlspecialchars($att_translations[$language][$f['spot']]) ?></td>
                         <td>
                             <a href="view.php?id=<?= htmlspecialchars($f["id"]) ?>">
-                                <button type="button"><?=$text_translations[$language]['viewButton']?></button>
+                                <button type="button"><?= $text_translations[$language]['viewButton'] ?></button>
                             </a>
                         </td>
                         <td>
                             <a href="delete.php?id=<?= htmlspecialchars($f["id"]) ?>">
-                                <button type="button"><?=$text_translations[$language]['viewDelete']?></button>
+                                <button type="button"><?= $text_translations[$language]['viewDelete'] ?></button>
                             </a>
                         </td>
                     </tr>
