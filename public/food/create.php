@@ -181,7 +181,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <option value="ml"><?=$att_translations[$language]['ml']?></option>
                 <option value="l"><?=$att_translations[$language]['l']?></option>
                 <option value="g"><?=$att_translations[$language]['g']?></option>
-                <option value="kilo"><?=$att_translations[$language]['kilo']?></option>
+                <option value="kg"><?=$att_translations[$language]['kg']?></option>
             </select>
 
             <label for="spot"><?=$att_translations[$language]['spot']?></label>

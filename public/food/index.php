@@ -84,7 +84,6 @@ $food = $stmt->fetchAll();
                     <th><?= $att_translations[$language]['qty'] ?></th>
                     <th><?= $att_translations[$language]['unit'] ?></th>
                     <th><?= $att_translations[$language]['spot'] ?></th>
-
                 </tr>
             </thead>
             <tbody>

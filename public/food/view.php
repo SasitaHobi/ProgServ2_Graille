@@ -53,7 +53,7 @@ if (isset($_GET["id"])) {
 
           
             <label for="peremption"><?=$att_translations[$language]['peremption']?></label>
-            <input type="date" id="peremption" value="<?= htmlspecialchars ($food->getPeremption()->format('d-m-y')) ?>" disabled />
+            <input type="date" id="peremption" value="<?= htmlspecialchars ($food->getPeremption()->format('Y-m-d')) ?>" disabled />
 
             <label for="shop"><?=$att_translations[$language]['shop']?></label>
             <input type="text" id="shop" value="<?= htmlspecialchars($food->getShop())?>" disabled />
@@ -64,14 +64,14 @@ if (isset($_GET["id"])) {
             <label for="unit"><?=$att_translations[$language]['unit']?></label>
             <select id="unit" disabled>
                 <?php foreach (Food::UNIT as $key => $value) { ?>
-                    <option value="<?= $key ?>" <?= $food['unit'] == $key ? 'selected' : '' ?>><?= $value ?></option>
+                    <option value="<?= $key ?>" <?= $food->getUnit() == $key ? 'selected' : '' ?>><?= $value ?></option>
                 <?php } ?>
             </select>
 
             <label for="spot"><?=$att_translations[$language]['spot']?></label>
             <select id="spot" disabled>
                 <?php foreach (Food::SPOT as $key => $value) { ?>
-                    <option value="<?= $key ?>" <?= $food['spot'] == $key ? 'selected' : '' ?>><?= $value ?></option>
+                    <option value="<?= $key ?>" <?= $food->getSpot() == $key ? 'selected' : '' ?>><?= $value ?></option>
                 <?php } ?>
             </select>
 
