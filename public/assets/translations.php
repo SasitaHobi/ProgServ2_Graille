@@ -25,7 +25,31 @@ $text_translations = [
         'editH1' => 'Edit food item',
         'editBack' => 'Back to homepage',
         'editSave' => 'Save changes',
-        'editCancel' => 'Annuler'
+        'editCancel' => 'Cancel',
+        'registerTitle'=> 'Create account | Graille',
+        'registerH1'=> 'Create account',
+        'registerError'=> 'Error :',
+        'registerSuccess'=> 'Success :',
+        'registerUsername'=> 'Username',
+        'registerPwd'=> 'Password (min. 8 caracters)',
+        'registerConfirm'=> 'Confirm password',
+        'registerSubmit'=> 'Create account',
+        'registerAccount'=> 'You already have an account ?',
+        'registerLogin'=> 'Login',
+        'registerBack'=> 'Back to homepage',
+        'logoutTitle'=> 'Logout | Graille',
+        'logoutH1'=> 'Logout successful',
+        'logoutText'=> 'You have been successfully logged out.',
+        'logoutBack'=> 'Back to homepage',
+        'loginTitle'=> 'Login | Graille',
+        'loginH1'=> 'Login',
+        'loginError'=> 'Error :',
+        'loginUsername'=> 'Username',
+        'loginPwd'=> 'Password',
+        'loginSubmit'=> 'Login',
+        'loginNoAccount'=> 'No account ? ',
+        'loginCreate'=> 'Create an account',
+        'loginBack'=> 'Back to homepage'
 
     ],
     'fr' => [
@@ -53,7 +77,32 @@ $text_translations = [
         'editH1' => 'Modifier un aliment',
         'editBack' => 'Retour à l\'accueil',
         'editSave' => 'Enregistrer les modification',
-        'editCancel' => 'Cancel'
+        'editCancel' => 'Annuler',
+        'registerTitle'=> 'Créer un compte | Graille',
+        'registerH1'=> 'Créer un compte',
+        'registerError'=> 'Erreur :',
+        'registerSuccess'=> 'Succès :',
+        'registerUsername'=> 'Nom d\'utilisateur',
+        'registerPwd'=> 'Mot de passe (min. 8 caractères)',
+        'registerConfirm'=> 'Confirmer le mot de passe',
+        'registerSubmit'=> 'Créer mon compte',
+        'registerAccount'=> 'Vous avez déjà un compte ?',
+        'registerLogin'=> 'Se connecter',
+        'registerBack'=> 'Retour à l\'accueil',
+        'logoutTitle'=> 'Déconnexion | Graille',
+        'logoutH1'=> 'Déconnexion réussie',
+        'logoutText'=> 'Vous avez été déconnecté.e avec succès.',
+        'logoutBack'=> 'Retour à l\'accueil',
+        'loginTitle'=> 'Se connecter | Graille',
+        'loginH1'=> 'Se connecter',
+        'loginError'=> 'Erreur :',
+        'loginUsername'=> 'Nom d\'utilisateur',
+        'loginPwd'=> 'Mot de passe',
+        'loginSubmit'=> 'Se connecter',
+        'loginNoAccount'=> 'Pas encore de compte ? ',
+        'loginCreate'=> 'Créer un compte',
+        'loginBack'=> 'Retour à l\'accueil'
+        
 
 
     ]
@@ -65,7 +114,15 @@ $error_translations = [
         'createQty' => 'Quantity is required.',
         'createUnit' => 'Unit is required.',
         'createSpot' => 'Spot is required.',
-        'editFood' => 'Food item cannot be found.'
+        'editFood' => 'Food item cannot be found.',
+        'registerEmpty' => 'All fields are compulsory.',
+        'registerPwdNoMatch' => 'Passwords do not match.',
+        'registerPwdShort' => 'Password must be at least 8 caracters long.',
+        'registerUserTkn' => 'Username already taken.',
+        'registerFail' => 'Error creating account : ',
+        'registerSuccess' => 'Account successfully created ! You may now login.',
+        'loginError' => 'Wrong username or password',
+        'loginFail' => 'Error logging in : '
     ],
     'fr' => [
         'createName' => 'Le nom de l\'aliment doit contenir au moins 2 caractères.',
@@ -73,7 +130,16 @@ $error_translations = [
         'createQty' => 'La quantité doit être un nombre positif.',
         'createUnit' => 'L\'unité est obligatoire.',
         'createSpot' => 'L\'emplacement est obligatoire.',
-        'editFood' => 'L\'aliment est introuvable'
+        'editFood' => 'L\'aliment est introuvable',
+        'registerEmpty' => 'Tous les champs sont obligatoires.',
+        'registerPwdNoMatch' => 'Les mots de passe ne correspondent pas.',
+        'registerPwdShort' => 'Le mot de passe doit contenir au moins 8 caractères.',
+        'registerUserTkn' => 'Ce nom d\'utilisateur est déjà pris.',
+        'registerFail' => 'Erreur lors de la création du compte : ',
+        'registerSuccess' => 'Compte créé avec succès ! Vous pouvez maintenant vous connecter.',
+        'loginError' => 'Nom d\'utilisateur ou mot de passe incorrect.',
+        'loginFail' => 'Erreur lors de la connexion : '
+
     ]
 ];
 
