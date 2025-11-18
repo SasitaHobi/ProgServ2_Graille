@@ -12,7 +12,11 @@ const DATABASE_FILE = __DIR__ . '/../users.db';
 $config = parse_ini_file(DATABASE_CONFIGURATION_FILE, true);
 
 session_start();
-$user_id = $_SESSION['user_id'];
+
+if (isset($_SESSION['user_id'])) {
+    header('Location: ../index.php');
+    exit();
+}
 
 if (!$config) {
     throw new Exception("Erreur lors de la lecture du fichier de configuration : " . DATABASE_CONFIGURATION_FILE);
@@ -39,8 +43,6 @@ $sql = "USE `$database`;";
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
 
-// Démarre la session
-session_start();
 
 // Initialise les variables
 $error = '';
