@@ -8,6 +8,37 @@ require_once __DIR__ . '/../assets/language.php';
 // Constantes
 const DATABASE_FILE = __DIR__ . '/../users.db';
 
+// Connexion à la base de données
+$config = parse_ini_file(DATABASE_CONFIGURATION_FILE, true);
+
+session_start();
+$user_id = $_SESSION['user_id'];
+
+if (!$config) {
+    throw new Exception("Erreur lors de la lecture du fichier de configuration : " . DATABASE_CONFIGURATION_FILE);
+}
+
+$host = $config['host'];
+$port = $config['port'];
+$database = $config['database'];
+$username = $config['username'];
+$password = $config['password'];
+
+// Documentation :
+//   - https://www.php.net/manual/fr/pdo.connections.php
+//   - https://www.php.net/manual/fr/ref.pdo-mysql.connection.php
+$pdo = new PDO("mysql:host=$host;port=$port;charset=utf8mb4", $username, $password);
+
+// Création de la base de données si elle n'existe pas
+$sql = "CREATE DATABASE IF NOT EXISTS `$database` CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;";
+$stmt = $pdo->prepare($sql);
+$stmt->execute();
+
+// Sélection de la base de données
+$sql = "USE `$database`;";
+$stmt = $pdo->prepare($sql);
+$stmt->execute();
+
 // Démarre la session
 session_start();
 
@@ -30,36 +61,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = $error_translations[$language]['registerPwdShort'];;
     } else {
         try {
-            // Connexion à la base de données
-            $config = parse_ini_file(DATABASE_CONFIGURATION_FILE, true);
-
-            session_start();
-            $user_id = $_SESSION['user_id'];
-
-            if (!$config) {
-                throw new Exception("Erreur lors de la lecture du fichier de configuration : " . DATABASE_CONFIGURATION_FILE);
-            }
-
-            $host = $config['host'];
-            $port = $config['port'];
-            $database = $config['database'];
-            $username = $config['username'];
-            $password = $config['password'];
-
-            // Documentation :
-            //   - https://www.php.net/manual/fr/pdo.connections.php
-            //   - https://www.php.net/manual/fr/ref.pdo-mysql.connection.php
-            $pdo = new PDO("mysql:host=$host;port=$port;charset=utf8mb4", $username, $password);
-
-            // Création de la base de données si elle n'existe pas
-            $sql = "CREATE DATABASE IF NOT EXISTS `$database` CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;";
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute();
-
-            // Sélection de la base de données
-            $sql = "USE `$database`;";
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute();
 
             // Vérifier si l'utilisateur existe déjà
             $stmt = $pdo->prepare('SELECT * FROM users WHERE username = :username');
