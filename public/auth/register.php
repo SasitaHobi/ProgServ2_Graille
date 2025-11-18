@@ -1,6 +1,12 @@
 <?php
+
+const DATABASE_CONFIGURATION_FILE = __DIR__ . '/../../src/config/database.ini';
+require __DIR__ . '/../../src/utils/autoloader.php';
+require_once __DIR__ . '/../assets/translations.php';
+require_once __DIR__ . '/../assets/language.php';
+
 // Constantes
-const DATABASE_FILE = __DIR__ . '/../../users.db';
+const DATABASE_FILE = __DIR__ . '/../users.db';
 
 // Démarre la session
 session_start();
@@ -17,15 +23,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Validation des données
     if (empty($username) || empty($password) || empty($confirmPassword)) {
-        $error = $error_translation[$language]['registerEmpty'];;
+        $error = $error_translations[$language]['registerEmpty'];;
     } elseif ($password !== $confirmPassword) {
-        $error = $error_translation[$language]['registerPwdNoMatch'];;
+        $error = $error_translations[$language]['registerPwdNoMatch'];;
     } elseif (strlen($password) < 8) {
-        $error = $error_translation[$language]['registerPwdShort'];;
+        $error = $error_translations[$language]['registerPwdShort'];;
     } else {
         try {
             // Connexion à la base de données
-            $pdo = new PDO('sqlite:' . DATABASE_FILE);
+            $pdo = new PDO('mysql:' . DATABASE_FILE);
 
             // Vérifier si l'utilisateur existe déjà
             $stmt = $pdo->prepare('SELECT * FROM users WHERE username = :username');
@@ -33,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $user = $stmt->fetch();
 
             if ($user) {
-                $error = $error_translation[$language]['registerUserTkn'];
+                $error = $error_translations[$language]['registerUserTkn'];
             } else {
                 // Hacher le mot de passe
                 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
@@ -46,10 +52,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     'role' => 'user' // Par défaut, les nouveaux utilisateurs ont le rôle "user"
                 ]);
 
-                $success = $error_translation[$language]['registerSuccess'];
+                $success = $error_translations[$language]['registerSuccess'];
             }
         } catch (PDOException $e) {
-            $error = $error_translation[$language]['registerFail'] . $e->getMessage();
+            $error = $error_translations[$language]['registerFail'] . $e->getMessage();
         }
     }
 }

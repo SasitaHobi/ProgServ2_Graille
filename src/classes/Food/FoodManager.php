@@ -4,7 +4,7 @@ namespace Food;
 
 require_once __DIR__ . '/../../utils/autoloader.php';
 
-use Database;
+use Database\Database;
 
 class FoodManager implements FoodManagerInterface
 {

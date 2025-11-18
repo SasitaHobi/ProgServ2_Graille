@@ -1,4 +1,9 @@
 <?php
+
+require __DIR__ . '/../../src/utils/autoloader.php';
+require_once __DIR__ . '/../assets/translations.php';
+require_once __DIR__ . '/../assets/language.php';
+
 // Démarre la session
 session_start();
 

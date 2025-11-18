@@ -6,6 +6,9 @@ require_once __DIR__ . '/../assets/language.php';
 use Food\Food;
 use Food\FoodManager;
 
+session_start();
+$user_id = $_SESSION['user_id'];
+
 $foodManager = new FoodManager();
 
 // vérification de l'ID

@@ -1,4 +1,9 @@
 <?php
+
+require __DIR__ . '/../../src/utils/autoloader.php';
+require_once __DIR__ . '/../assets/translations.php';
+require_once __DIR__ . '/../assets/language.php';
+
 // Constantes
 const DATABASE_FILE = __DIR__ . '/../../users.db';
 
@@ -21,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Validation des données
     if (empty($username) || empty($password)) {
-        $error = $error_translation[$language]['registerEmpty'];
+        $error = $error_translations[$language]['registerEmpty'];
     } else {
         try {
             // Connexion à la base de données
@@ -44,10 +49,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 exit();
             } else {
                 // Authentification échouée
-                $error = $error_translation[$language]['loginError'];
+                $error = $error_translations[$language]['loginError'];
             }
         } catch (PDOException $e) {
-            $error = $error_translation[$language]['loginFail'] . $e->getMessage();
+            $error = $error_translations[$language]['loginFail'] . $e->getMessage();
         }
     }
 }

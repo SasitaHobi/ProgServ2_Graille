@@ -3,6 +3,9 @@ require __DIR__ . '/../../src/utils/autoloader.php';
 require_once __DIR__ . '/../assets/translations.php';
 require_once __DIR__ . '/../assets/language.php';
 
+session_start();
+$user_id = $_SESSION['user_id'];
+
 use Food\FoodManager;
 
 $foodManager = new FoodManager();

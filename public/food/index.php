@@ -6,6 +6,9 @@ require_once __DIR__ . '/../assets/language.php';
 // Documentation : https://www.php.net/manual/fr/function.parse-ini-file.php
 $config = parse_ini_file(DATABASE_CONFIGURATION_FILE, true);
 
+session_start();
+$user_id = $_SESSION['user_id'];
+
 if (!$config) {
     throw new Exception("Erreur lors de la lecture du fichier de configuration : " . DATABASE_CONFIGURATION_FILE);
 }
