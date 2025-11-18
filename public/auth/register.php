@@ -31,7 +31,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         try {
             // Connexion à la base de données
-            $pdo = new PDO('mysql:' . DATABASE_FILE);
+            $config = parse_ini_file(DATABASE_CONFIGURATION_FILE, true);
+
+            session_start();
+            $user_id = $_SESSION['user_id'];
+
+            if (!$config) {
+                throw new Exception("Erreur lors de la lecture du fichier de configuration : " . DATABASE_CONFIGURATION_FILE);
+            }
+
+            $host = $config['host'];
+            $port = $config['port'];
+            $database = $config['database'];
+            $username = $config['username'];
+            $password = $config['password'];
+
+            // Documentation :
+            //   - https://www.php.net/manual/fr/pdo.connections.php
+            //   - https://www.php.net/manual/fr/ref.pdo-mysql.connection.php
+            $pdo = new PDO("mysql:host=$host;port=$port;charset=utf8mb4", $username, $password);
+
+            // Création de la base de données si elle n'existe pas
+            $sql = "CREATE DATABASE IF NOT EXISTS `$database` CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute();
+
+            // Sélection de la base de données
+            $sql = "USE `$database`;";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute();
 
             // Vérifier si l'utilisateur existe déjà
             $stmt = $pdo->prepare('SELECT * FROM users WHERE username = :username');
@@ -67,44 +95,44 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
-    <title><?=$text_translations[$language]['registerTitle']?></title>
+    <title><?= $text_translations[$language]['registerTitle'] ?></title>
 </head>
 
 <body>
     <main class="container">
-        <h1><?=$text_translations[$language]['registerH1']?></h1>
+        <h1><?= $text_translations[$language]['registerH1'] ?></h1>
 
         <?php if ($error) { ?>
-            <p><strong><?=$text_translations[$language]['registerError']?></strong> <?= htmlspecialchars($error) ?></p>
+            <p><strong><?= $text_translations[$language]['registerError'] ?></strong> <?= htmlspecialchars($error) ?></p>
         <?php } ?>
 
         <?php if ($success) { ?>
-            <p><strong><?=$text_translations[$language]['registerSuccess']?></strong> <?= htmlspecialchars($success) ?></p>
-            <p><a href="login.php"><?=$text_translations[$language]['registerLogin']?></a></p>
+            <p><strong><?= $text_translations[$language]['registerSuccess'] ?></strong> <?= htmlspecialchars($success) ?></p>
+            <p><a href="login.php"><?= $text_translations[$language]['registerLogin'] ?></a></p>
         <?php } ?>
 
         <form method="post">
             <label for="username">
-                <?=$text_translations[$language]['registerUsername']?>
+                <?= $text_translations[$language]['registerUsername'] ?>
                 <input type="text" id="username" name="username" required autofocus>
             </label>
 
             <label for="password">
-                <?=$text_translations[$language]['registerPwd']?>
+                <?= $text_translations[$language]['registerPwd'] ?>
                 <input type="password" id="password" name="password" required minlength="8">
             </label>
 
             <label for="confirm_password">
-                <?=$text_translations[$language]['registerConfirm']?>
+                <?= $text_translations[$language]['registerConfirm'] ?>
                 <input type="password" id="confirm_password" name="confirm_password" required minlength="8">
             </label>
 
-            <button type="submit"><?=$text_translations[$language]['registerSubmit']?></button>
+            <button type="submit"><?= $text_translations[$language]['registerSubmit'] ?></button>
         </form>
 
-        <p><?=$text_translations[$language]['registerAccount']?><a href="login.php"><?=$text_translations[$language]['registerLogin']?></a></p>
+        <p><?= $text_translations[$language]['registerAccount'] ?><a href="login.php"><?= $text_translations[$language]['registerLogin'] ?></a></p>
 
-        <p><a href="index.php"><?=$text_translations[$language]['registerBack']?></a></p>
+        <p><a href="index.php"><?= $text_translations[$language]['registerBack'] ?></a></p>
     </main>
 </body>
 
