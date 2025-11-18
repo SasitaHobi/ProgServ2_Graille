@@ -49,7 +49,11 @@ $text_translations = [
         'loginSubmit'=> 'Login',
         'loginNoAccount'=> 'No account ? ',
         'loginCreate'=> 'Create an account',
-        'loginBack'=> 'Back to homepage'
+        'loginBack'=> 'Back to homepage',
+        'adminView' => 'Admin view',
+        'adminTitle' => 'Admin page | Food management',
+        'adminP' => 'This page is only available to administrators.'
+
 
     ],
     'fr' => [
@@ -101,7 +105,10 @@ $text_translations = [
         'loginSubmit'=> 'Se connecter',
         'loginNoAccount'=> 'Pas encore de compte ? ',
         'loginCreate'=> 'Créer un compte',
-        'loginBack'=> 'Retour à l\'accueil'
+        'loginBack'=> 'Retour à l\'accueil',
+        'adminView' => 'Vue admin',
+                'adminTitle' => 'Page administrateur | Gestion des aliments',
+'adminP' => 'Cette page est accessible uniquement aux administrateurs.'
         
 
 

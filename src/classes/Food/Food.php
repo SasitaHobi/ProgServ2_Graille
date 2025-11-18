@@ -25,6 +25,7 @@ class Food implements FoodInterface
 
 
     private ?int $id;
+    private int $userId;
     private string $name;
     private DateTime $peremption;
     private ?string $shop;
@@ -33,7 +34,7 @@ class Food implements FoodInterface
     private string $spot;
 
     // Constructeur pour initialiser l'objet
-    public function __construct(?int $id, string $name, DateTime $peremption, ?string $shop, float $qty, string $unit, string $spot)
+    public function __construct(?int $id, int $userId, string $name, DateTime $peremption, ?string $shop, float $qty, string $unit, string $spot)
     {
 
         // Vérification des données
@@ -51,6 +52,7 @@ class Food implements FoodInterface
 
         // Initialisation des propriétés
         $this->id = $id;
+        $this->userId = $userId;
         $this->name = $name;
         $this->peremption = $peremption;
         $this->shop = $shop;
@@ -63,6 +65,11 @@ class Food implements FoodInterface
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getUserId(): int
+    {
+        return $this->userId;
     }
 
     public function getName(): string
