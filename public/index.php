@@ -4,6 +4,10 @@ require_once 'assets/translations.php';
 require_once 'assets/language.php';
 
 use Database\Database;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+const MAIL_CONFIGURATION_FILE = __DIR__ . '/../src/config/mail.ini';
 
 const DATABASE_FILE = __DIR__ . '/../../users.db';
 
@@ -26,6 +30,48 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['language'])) {
 
     header('Location: index.php');
     exit;
+}
+
+// Envoi d'un e-mail
+$config = parse_ini_file(MAIL_CONFIGURATION_FILE, true);
+
+if (!$config) {
+    throw new Exception("Erreur lors de la lecture du fichier de configuration : " . MAIL_CONFIGURATION_FILE);
+}
+
+$host = $config['host'];
+$port = filter_var($config['port'], FILTER_VALIDATE_INT);
+$authentication = filter_var($config['authentication'], FILTER_VALIDATE_BOOLEAN);
+$username = $config['username'];
+$password= $config['password'];
+$from_email = $config['from_email'];
+$from_name = $config['from_name'];
+
+$mail = new PHPMailer(true);
+
+try {
+    $mail->isSMTP();
+    $mail->Host = $host;
+    $mail->Port = $port;
+    $mail->SMTPAuth = $authentication;
+    $mail->Username = $username;
+    $mail->Password = $password;
+    $mail->CharSet = "UTF-8";
+    $mail->Encoding = "base64";
+
+    $mail->setFrom($from_email, $from_name);
+    $mail->addAddress('','');
+
+    $mail->isHTML(true);
+    $mail->Subject = 'Création de votre compte';
+    $mail->Body = 'Félicitation, votre compte a bien été créé';
+    $mail->AltBody = 'Félicitation, votre compte a bien été créé';
+    
+    $mail->send();
+
+    echo 'Mail envoyé';
+} catch (Exception $e) {
+    echo "Le message n'a pas pu être envoyé. Mailer Error : {$mail->ErrorInfo}";
 }
 
 ?>
