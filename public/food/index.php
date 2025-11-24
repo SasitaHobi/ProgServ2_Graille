@@ -92,22 +92,12 @@ $food = $stmt->fetchAll();
             <tbody>
                 <?php foreach ($food as $f) { ?>
                     <tr>
-                        <!-- à voir si ?? '' marche -->
-                        <td><?= htmlspecialchars($att_translations[$language][$f['name']] ?? '') ?></td>
-                        <td><?= htmlspecialchars($att_translations[$language][$f['peremption']] ?? '') ?></td>
-                        <td><?= htmlspecialchars($att_translations[$language][$f['shop']]) ?></td>
-                        <!-- test shop -->
-                        <td><?php if (isset($f['shop'])) {
-                                echo  htmlspecialchars($att_translations[$language][$f['shop']]);
-                            } else {
-                                echo "";
-                            }
-                            ?></td>
-
-
-                        <td><?= htmlspecialchars($att_translations[$language][$f['qty']]) ?></td>
-                        <td><?= htmlspecialchars($att_translations[$language][$f['unit']]) ?></td>
-                        <td><?= htmlspecialchars($att_translations[$language][$f['spot']]) ?></td>
+                        <td><?= htmlspecialchars($f['name'] ?? '') ?></td>
+                        <td><?= htmlspecialchars($f['peremption'] ?? '') ?></td>
+                        <td><?= htmlspecialchars($f['shop'] ?? '') ?></td>
+                        <td><?= htmlspecialchars($f['qty'] ?? '') ?></td>
+                        <td><?= htmlspecialchars($f['unit'] ?? '') ?></td>
+                        <td><?= htmlspecialchars($f['spot'] ?? '') ?></td>
                         <td>
                             <a href="view.php?id=<?= htmlspecialchars($f["id"]) ?>">
                                 <button type="button"><?= $text_translations[$language]['viewButton'] ?></button>
@@ -119,7 +109,7 @@ $food = $stmt->fetchAll();
                             </a>
                         </td>
                         <td>
-                            <a href="/public/admin2.php?id=<?= htmlspecialchars($f["id"]) ?>">
+                            <a href="../admin2.php?id=<?= htmlspecialchars($f["id"]) ?>"> 
                                 <button type="button"><?= $text_translations[$language]['adminView'] ?></button>
                             </a>
                         </td>
