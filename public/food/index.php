@@ -92,8 +92,9 @@ $food = $stmt->fetchAll();
             <tbody>
                 <?php foreach ($food as $f) { ?>
                     <tr>
-                        <td><?= htmlspecialchars($att_translations[$language][$f['name']]) ?></td>
-                        <td><?= htmlspecialchars($att_translations[$language][$f['peremption']]) ?></td>
+                        <!-- à voir si ?? '' marche -->
+                        <td><?= htmlspecialchars($att_translations[$language][$f['name']] ?? '') ?></td>
+                        <td><?= htmlspecialchars($att_translations[$language][$f['peremption']] ?? '') ?></td>
                         <td><?= htmlspecialchars($att_translations[$language][$f['shop']]) ?></td>
                         <!-- test shop -->
                         <td><?php if (isset($f['shop'])) {
