@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 require __DIR__ . '/../src/utils/autoloader.php';
 require_once 'assets/translations.php';
 require_once 'assets/language.php';
@@ -8,8 +10,6 @@ use Database\Database;
 const DATABASE_FILE = __DIR__ . '/../../users.db';
 
 $db = new Database();
-
-session_start();
 
 // Gestion de la suppression du cookie
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_cookie'])) {
@@ -48,8 +48,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['language'])) {
 
     <!-- préférence de langue -->
     <header>
-        <p><a href="/auth/login.php"><button><?= $text_translations[$language]['registerLogin'] ?></button></a></p>
-        <p><a href="/auth/register.php"><button><?= $text_translations[$language]['registerSubmit'] ?></button></a></p>
+        <a href="auth/login.php">
+            <button type="button"><?= $text_translations[$language]['registerLogin'] ?></button>
+        </a>
+        <a href="auth/register.php">
+            <button type="button"><?= $text_translations[$language]['registerSubmit'] ?></button>
+        </a>
+        <a href="auth/logout.php">
+            <button type="button"><?= $text_translations[$language]['registerLogout'] ?></button>
+        </a>
 
         <form method="POST">
             <label for="language">

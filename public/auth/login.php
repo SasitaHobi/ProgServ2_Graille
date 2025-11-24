@@ -1,54 +1,64 @@
 <?php
 
+// Démarre la session
+session_start();
+
 require __DIR__ . '/../../src/utils/autoloader.php';
 require_once __DIR__ . '/../assets/translations.php';
 require_once __DIR__ . '/../assets/language.php';
 
 // Constantes
-const DATABASE_FILE = __DIR__ . '/../../users.db';
+const DATABASE_CONFIGURATION_FILE = __DIR__ . '/../../src/config/database.ini';
+$config = parse_ini_file(DATABASE_CONFIGURATION_FILE, true);
 
-// Démarre la session
-session_start();
+if (!$config) {
+    throw new Exception("Erreur lors de la lecture du fichier de configuration : " . DATABASE_CONFIGURATION_FILE);
+}
+
+$host = $config['host'];
+$port = $config['port'];
+$database = $config['database'];
+$username = $config['username'];
+$password = $config['password'];
+
 
 // Si l'utilisateur est déjà connecté, le rediriger vers l'accueil
 if (isset($_SESSION['user_id'])) {
-    header('Location: ../index.php');
+    header('Location: ../food/index.php');
     exit();
 }
 
 // Initialise les variables
 $error = '';
 
+
 // Traite le formulaire de connexion
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+    $usernameUser = $_POST['username'];
+    $passwordUser = $_POST['password'];
 
-    // Validation des données
-    if (empty($username) || empty($password)) {
+    if (empty($usernameUser) || empty($passwordUser)) {
         $error = $error_translations[$language]['registerEmpty'];
     } else {
         try {
-            // Connexion à la base de données
-            $pdo = new PDO('sqlite:' . DATABASE_FILE);
+            $pdo = new PDO(
+                "mysql:host=$host;port=$port;dbname=$database;charset=utf8mb4",
+                $username,
+                $password
+            );
 
-            // Récupérer l'utilisateur de la base de données
-            $stmt = $pdo->prepare('SELECT * FROM users WHERE username = :username');
-            $stmt->execute(['username' => $username]);
+            $stmt = $pdo->prepare('SELECT * FROM users WHERE username = :usernameUser');
+            $stmt->execute(['usernameUser' => $usernameUser]);
             $user = $stmt->fetch();
 
-            // Vérifier le mot de passe
-            if ($user && password_verify($password, $user['password'])) {
-                // Authentification réussie - stocker les informations dans la session
+            if ($user && password_verify($passwordUser, $user['password'])) {
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['username'] = $user['username'];
                 $_SESSION['role'] = $user['role'];
 
-                // Rediriger vers la page d'accueil
                 header('Location: ../index.php');
                 exit();
             } else {
-                // Authentification échouée
                 $error = $error_translations[$language]['loginError'];
             }
         } catch (PDOException $e) {
@@ -56,6 +66,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
+
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -64,35 +76,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
-    <title><?=$text_translations[$language]['loginTitle']?></title>
+    <title><?= $text_translations[$language]['loginTitle'] ?></title>
 </head>
 
 <body>
     <main class="container">
-        <h1><?=$text_translations[$language]['loginH1']?></h1>
+        <h1><?= $text_translations[$language]['loginH1'] ?></h1>
 
         <?php if ($error) { ?>
-            <p><strong><?=$text_translations[$language]['loginError']?></strong> <?= htmlspecialchars($error) ?></p>
+            <p><strong><?= $text_translations[$language]['loginError'] ?></strong> <?= htmlspecialchars($error) ?></p>
         <?php } ?>
 
         <form method="post">
             <label for="username">
-                <?=$text_translations[$language]['loginUsername']?>
+                <?= $text_translations[$language]['loginUsername'] ?>
                 <input type="text" id="username" name="username" required autofocus>
             </label>
 
             <label for="password">
-                <?=$text_translations[$language]['loginPwd']?>
+                <?= $text_translations[$language]['loginPwd'] ?>
                 <input type="password" id="password" name="password" required>
             </label>
 
-            <button type="submit"><?=$text_translations[$language]['loginSubmit']?></button>
+            <button type="submit"><?= $text_translations[$language]['loginSubmit'] ?></button>
         </form>
 
-        <p><?=$text_translations[$language]['loginNoAccount']?>
-        <a href="register.php"><?=$text_translations[$language]['loginCreate']?></a></p>
+        <p><?= $text_translations[$language]['loginNoAccount'] ?>
+            <a href="register.php"><?= $text_translations[$language]['loginCreate'] ?></a>
+        </p>
 
-        <p><a href="../index.php"><?=$text_translations[$language]['loginBack']?></a></p>
+        <p><a href="../index.php"><?= $text_translations[$language]['loginBack'] ?></a></p>
     </main>
 </body>
 

@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 const DATABASE_CONFIGURATION_FILE = __DIR__ . '/../../src/config/database.ini';
 require __DIR__ . '/../../src/utils/autoloader.php';
@@ -11,10 +12,8 @@ const DATABASE_FILE = __DIR__ . '/../users.db';
 // Connexion à la base de données
 $config = parse_ini_file(DATABASE_CONFIGURATION_FILE, true);
 
-session_start();
-
 if (isset($_SESSION['user_id'])) {
-    header('Location: ../index.php');
+    header('Location: ../food/index.php');
     exit();
 }
 

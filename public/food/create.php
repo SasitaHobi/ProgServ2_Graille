@@ -1,20 +1,21 @@
 <?php
+session_start();
+
 const DATABASE_CONFIGURATION_FILE = __DIR__ . '/../../src/config/database.ini';
 require __DIR__ . '/../../src/utils/autoloader.php';
 require_once __DIR__ . '/../assets/translations.php';
 require_once __DIR__ . '/../assets/language.php';
 
-// Documentation : https://www.php.net/manual/fr/function.parse-ini-file.php
-$config = parse_ini_file(DATABASE_CONFIGURATION_FILE, true);
-
-session_start();
 // Vérifie si l'utilisateur est authentifié
 if (!isset($_SESSION['user_id'])) {
     // Redirige vers la page de connexion si l'utilisateur n'est pas connecté
-    header('Location: auth/login.php');
+    header('Location: ../auth/login.php');
     exit();
 }
 $user_id = $_SESSION['user_id'];
+
+// Documentation : https://www.php.net/manual/fr/function.parse-ini-file.php
+$config = parse_ini_file(DATABASE_CONFIGURATION_FILE, true);
 
 
 if (!$config) {
@@ -44,16 +45,17 @@ $stmt->execute();
 
 $sql = "CREATE TABLE IF NOT EXISTS food (
     id INT AUTO_INCREMENT PRIMARY KEY,
-            name VARCHAR(40) NOT NULL,
-            peremption DATE NOT NULL,
-            shop VARCHAR(20),            
-            qty FLOAT NOT NULL,
-            unit VARCHAR(10) NOT NULL,
-            spot VARCHAR(20) NOT NULL
+    user_id INT NOT NULL,
+    name VARCHAR(40) NOT NULL,
+    peremption DATE NOT NULL,
+    shop VARCHAR(20),
+    qty FLOAT NOT NULL,
+    unit VARCHAR(10) NOT NULL,
+    spot VARCHAR(20) NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id)
 );";
 
 $stmt = $pdo->prepare($sql);
-
 $stmt->execute();
 
 // Gère la soumission du formulaire
@@ -65,7 +67,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $qty = $_POST["qty"];
     $unit = $_POST["unit"];
     $spot = $_POST["spot"];
-
 
     $errors = [];
 
@@ -96,9 +97,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     // Si pas d'erreurs, insertion dans la base de données
     if (empty($errors)) {
-
         $sql = "INSERT INTO food (
-            userId,
+            user_id,
             name,
             peremption,
             shop,
@@ -106,7 +106,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             unit,
             spot
         ) VALUES (
-            :userId,
+            :user_id,
             :name,
             :peremption,
             :shop,
@@ -120,7 +120,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         // Lien avec les paramètres
         $stmt->bindValue(':name', $name);
-        $stmt->bindValue(':userId', $user_id);
+        $stmt->bindValue(':user_id', $user_id);
         $stmt->bindValue(':peremption', $peremption);
 
         if (!empty($shop)) {

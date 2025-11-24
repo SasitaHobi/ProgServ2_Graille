@@ -17,6 +17,7 @@ if (!$userId) {
 }
 
 // Détruit la session
+session_unset();
 session_destroy();
 ?>
 <!DOCTYPE html>

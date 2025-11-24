@@ -10,7 +10,7 @@ session_start();
 // Vérifie si l'utilisateur est authentifié
 if (!isset($_SESSION['user_id'])) {
     // Redirige vers la page de connexion si l'utilisateur n'est pas connecté
-    header('Location: auth/login.php');
+    header('Location: ../auth/login.php');
     exit();
 }
 $user_id = $_SESSION['user_id'];
@@ -42,12 +42,14 @@ $stmt->execute();
 
 $sql = "CREATE TABLE IF NOT EXISTS food (
     id INT AUTO_INCREMENT PRIMARY KEY,
-            name VARCHAR(40) NOT NULL,
-            peremption DATE NOT NULL,
-            shop VARCHAR(20),
-            qty FLOAT NOT NULL,
-            unit VARCHAR(10) NOT NULL,
-            spot VARCHAR(20) NOT NULL
+    user_id INT NOT NULL,
+    name VARCHAR(40) NOT NULL,
+    peremption DATE NOT NULL,
+    shop VARCHAR(20),
+    qty FLOAT NOT NULL,
+    unit VARCHAR(10) NOT NULL,
+    spot VARCHAR(20) NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id)
 );";
 
 $stmt = $pdo->prepare($sql);
@@ -55,10 +57,10 @@ $stmt = $pdo->prepare($sql);
 $stmt->execute();
 
 // Définition de la requête SQL pour récupérer tous les aliments
-$sql = "SELECT * FROM food WHERE user_id= :user_id";
-$stmt->bindValue(':user_id', $user_id);
-
+$sql = "SELECT * FROM food WHERE user_id = :user_id";
 $stmt = $pdo->prepare($sql);
+
+$stmt->bindValue(':user_id', $user_id);
 
 $stmt->execute();
 
@@ -116,7 +118,7 @@ $food = $stmt->fetchAll();
                             </a>
                         </td>
                         <td>
-                            <a href="../admin2.php?id=<?= htmlspecialchars($f["id"]) ?>"> 
+                            <a href="../public/admin2.php?id=<?= htmlspecialchars($f["id"]) ?>">
                                 <button type="button"><?= $text_translations[$language]['adminView'] ?></button>
                             </a>
                         </td>
