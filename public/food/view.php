@@ -7,11 +7,10 @@ use Food\FoodManager;
 use Food\Food;
 
 session_start();
-$userId = $_SESSION['user_id'] ?? null;
-
-if (!$userId) {
-    // Redirige vers la page de connexion si l'utilisateur n'est pas authentifié
-    header('Location: 403.php');
+// Vérifie si l'utilisateur est authentifié
+if (!isset($_SESSION['user_id'])) {
+    // Redirige vers la page de connexion si l'utilisateur n'est pas connecté
+    header('Location: auth/login.php');
     exit();
 }
 $user_id = $_SESSION['user_id'];

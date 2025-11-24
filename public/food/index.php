@@ -7,6 +7,12 @@ require_once __DIR__ . '/../assets/language.php';
 $config = parse_ini_file(DATABASE_CONFIGURATION_FILE, true);
 
 session_start();
+// Vérifie si l'utilisateur est authentifié
+if (!isset($_SESSION['user_id'])) {
+    // Redirige vers la page de connexion si l'utilisateur n'est pas connecté
+    header('Location: auth/login.php');
+    exit();
+}
 $user_id = $_SESSION['user_id'];
 
 if (!$config) {
@@ -49,7 +55,8 @@ $stmt = $pdo->prepare($sql);
 $stmt->execute();
 
 // Définition de la requête SQL pour récupérer tous les aliments
-$sql = "SELECT * FROM food";
+$sql = "SELECT * FROM food WHERE user_id= :user_id";
+$stmt->bindValue(':user_id', $user_id);
 
 $stmt = $pdo->prepare($sql);
 

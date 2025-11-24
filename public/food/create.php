@@ -8,7 +8,14 @@ require_once __DIR__ . '/../assets/language.php';
 $config = parse_ini_file(DATABASE_CONFIGURATION_FILE, true);
 
 session_start();
+// Vérifie si l'utilisateur est authentifié
+if (!isset($_SESSION['user_id'])) {
+    // Redirige vers la page de connexion si l'utilisateur n'est pas connecté
+    header('Location: auth/login.php');
+    exit();
+}
 $user_id = $_SESSION['user_id'];
+
 
 if (!$config) {
     throw new Exception("Erreur lors de la lecture du fichier de configuration : " . DATABASE_CONFIGURATION_FILE);
@@ -91,6 +98,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (empty($errors)) {
 
         $sql = "INSERT INTO food (
+            userId,
             name,
             peremption,
             shop,
@@ -98,6 +106,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             unit,
             spot
         ) VALUES (
+            :userId,
             :name,
             :peremption,
             :shop,
@@ -111,6 +120,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         // Lien avec les paramètres
         $stmt->bindValue(':name', $name);
+        $stmt->bindValue(':userId', $user_id);
         $stmt->bindValue(':peremption', $peremption);
 
         if (!empty($shop)) {

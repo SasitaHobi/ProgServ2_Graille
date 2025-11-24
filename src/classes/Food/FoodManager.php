@@ -33,6 +33,7 @@ class FoodManager implements FoodManagerInterface
         $food = array_map(function ($foodData) {
             return new Food(
                 $foodData['id'],
+                $foodData['ueser_id'],
                 $foodData['name'],
                 new \DateTime($foodData['peremption']),
                 $foodData['shop'],
@@ -71,6 +72,7 @@ class FoodManager implements FoodManagerInterface
     // Transformation du tableau associatif en objet Food
     return new Food(
         $foodData['id'],
+        $foodData['ueser_id'],
         $foodData['name'],
         new \DateTime($foodData['peremption']),
         $foodData['shop'],
