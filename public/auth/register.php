@@ -2,9 +2,13 @@
 session_start();
 
 const DATABASE_CONFIGURATION_FILE = __DIR__ . '/../../src/config/database.ini';
+const MAIL_CONFIGURATION_FILE     = __DIR__ . '/../../src/config/mail.ini';
 require __DIR__ . '/../../src/utils/autoloader.php';
 require_once __DIR__ . '/../assets/translations.php';
 require_once __DIR__ . '/../assets/language.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 // Constantes
 const DATABASE_FILE = __DIR__ . '/../users.db';
@@ -85,6 +89,53 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ]);
 
                 $success = $error_translations[$language]['registerSuccess'];
+
+                //Envoi d'un e-mail de confirmation de création de compte
+                $mailConfig = parse_ini_file(MAIL_CONFIGURATION_FILE, true);
+
+                if ($mailConfig) {
+                    $host_mail         = $mailConfig['host'];
+                    $port_mail         = filter_var($mailConfig['port'], FILTER_VALIDATE_INT);
+                    $authentication    = filter_var($mailConfig['authentication'], FILTER_VALIDATE_BOOLEAN);
+                    $smtp_username     = $mailConfig['username'];
+                    $smtp_password     = $mailConfig['password'];
+                    $from_email        = $mailConfig['from_email'];
+                    $from_name         = $mailConfig['from_name'];
+
+                    $mail = new PHPMailer(true);
+
+                    try {
+                        $mail->isSMTP();
+                        $mail->Host       = $host_mail;
+                        $mail->Port       = $port_mail;
+                        $mail->SMTPAuth   = $authentication;
+                        if ($authentication) {
+                            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+                            $mail->Username = $username;
+                            $mail->Password =$password;
+                        }
+                        $mail->CharSet    = "UTF-8";
+                        $mail->Encoding   = "base64";
+
+                        // Expéditeur : celui du fichier mail.ini
+                        $mail->setFrom($from_email, $from_name);
+                        // Destinataire : le nouvel utilisateur
+                        $mail->addAddress($email, $username);
+
+                        $mail->isHTML(true);
+                        $mail->Subject = 'Création de votre compte';
+                        $mail->Body    = 'Félicitation, votre compte a bien été créé';
+                        $mail->AltBody = 'Félicitation, votre compte a bien été créé';
+
+                        $mail->send();
+                        // Pas d'echo ici pour ne pas casser l'affichage, au pire on pourrait log
+                    } catch (Exception $e) {
+                        // On ne bloque pas l'inscription, on log juste l'erreur
+                        error_log("Erreur envoi mail de création de compte : " . $mail->ErrorInfo);
+                    }
+                } else {
+                    error_log("Erreur lors de la lecture du fichier de configuration : " . MAIL_CONFIGURATION_FILE);
+                }
             }
         } catch (PDOException $e) {
             $error = $error_translations[$language]['registerFail'] . $e->getMessage();
