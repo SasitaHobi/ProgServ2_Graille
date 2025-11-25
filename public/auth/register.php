@@ -117,18 +117,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $mail->CharSet    = "UTF-8";
                         $mail->Encoding   = "base64";
 
-                        // Expéditeur : celui du fichier mail.ini
+
                         $mail->setFrom($from_email, $from_name);
-                        // Destinataire : le nouvel utilisateur
                         $mail->addAddress($email, $username);
 
                         $mail->isHTML(true);
                         $mail->Subject = 'Création de votre compte';
-                        $mail->Body    = 'Félicitation, votre compte a bien été créé';
-                        $mail->AltBody = 'Félicitation, votre compte a bien été créé';
+                        $mail->Body    = 'Félicitations, votre compte a bien été créé';
+                        $mail->AltBody = 'Félicitations, votre compte a bien été créé';
 
                         $mail->send();
-                        // Pas d'echo ici pour ne pas casser l'affichage, au pire on pourrait log
                     } catch (Exception $e) {
                         // On ne bloque pas l'inscription, on log juste l'erreur
                         error_log("Erreur envoi mail de création de compte : " . $mail->ErrorInfo);
