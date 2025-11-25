@@ -111,8 +111,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $mail->SMTPAuth   = $authentication;
                         if ($authentication) {
                             $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-                            $mail->Username = $username;
-                            $mail->Password =$password;
+                            $mail->Username = $smtp_username;
+                            $mail->Password =$smtp_password;
                         }
                         $mail->CharSet    = "UTF-8";
                         $mail->Encoding   = "base64";
