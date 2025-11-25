@@ -82,7 +82,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['language'])) {
 
         <p><?= $text_translations[$language]['homeText'] ?></p>
 
-
         <p><a href="food/index.php"><button><?= $text_translations[$language]['homeButton'] ?></button></a></p>
     </main>
 </body>

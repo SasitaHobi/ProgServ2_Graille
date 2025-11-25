@@ -60,12 +60,11 @@ if (isset($_GET["id"])) {
             <label for="name"><?=$att_translations[$language]['name']?></label>
             <input type="text" id="name" value="<?= htmlspecialchars($food->getName())?>" disabled />
 
-          
             <label for="peremption"><?=$att_translations[$language]['peremption']?></label>
             <input type="date" id="peremption" value="<?= htmlspecialchars ($food->getPeremption()->format('Y-m-d')) ?>" disabled />
 
             <label for="shop"><?=$att_translations[$language]['shop']?></label>
-            <input type="text" id="shop" value="<?= htmlspecialchars($food->getShop())?>" disabled />
+            <input type="text" id="shop" value="<?= htmlspecialchars($food->getShop() ?? '')?>" disabled />
 
             <label for="qty"><?=$att_translations[$language]['qty']?></label>
             <input type="number" id="qty" value="<?= htmlspecialchars($food->getQty())?>" disabled />

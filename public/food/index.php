@@ -15,6 +15,14 @@ if (!isset($_SESSION['user_id'])) {
 }
 $user_id = $_SESSION['user_id'];
 
+// Vérifie si l'utilisateur a le bon rôle
+ if ($_SESSION['role'] === 'admin') {
+    // Redirige vers la page 403 si l'utilisateur n'est pas admin
+    header('Location: ../admin.php');
+    exit();
+}
+
+
 if (!$config) {
     throw new Exception("Erreur lors de la lecture du fichier de configuration : " . DATABASE_CONFIGURATION_FILE);
 }
@@ -105,8 +113,8 @@ $food = $stmt->fetchAll();
                         <td><?= htmlspecialchars($f['peremption'] ?? '') ?></td>
                         <td><?= htmlspecialchars($f['shop'] ?? '') ?></td>
                         <td><?= htmlspecialchars($f['qty'] ?? '') ?></td>
-                        <td><?= htmlspecialchars($f['unit'] ?? '') ?></td>
-                        <td><?= htmlspecialchars($f['spot'] ?? '') ?></td>
+                        <td><?= htmlspecialchars($att_translations[$language][$f['unit']] ?? '') ?></td>
+                        <td><?= htmlspecialchars($att_translations[$language][$f['spot']] ?? '') ?></td>
                         <td>
                             <a href="view.php?id=<?= htmlspecialchars($f["id"]) ?>">
                                 <button type="button"><?= $text_translations[$language]['viewButton'] ?></button>
