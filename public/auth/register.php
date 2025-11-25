@@ -50,11 +50,12 @@ $success = '';
 // Traiter le formulaire d'inscription
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'] ?? '';
+    $email = $_POST['email'] ?? '';
     $password = $_POST['password'] ?? '';
     $confirmPassword = $_POST['confirm_password'] ?? '';
 
     // Validation des données
-    if (empty($username) || empty($password) || empty($confirmPassword)) {
+    if (empty($username) || empty($password) || empty($confirmPassword)|| empty($email)) {
         $error = $error_translations[$language]['registerEmpty'];;
     } elseif ($password !== $confirmPassword) {
         $error = $error_translations[$language]['registerPwdNoMatch'];;
@@ -75,9 +76,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
                 // Insérer le nouvel utilisateur
-                $stmt = $pdo->prepare('INSERT INTO users (username, password, role) VALUES (:username, :password, :role)');
+                $stmt = $pdo->prepare('INSERT INTO users (username,email, password, role) VALUES (:username, :email, :password, :role)');
                 $stmt->execute([
                     'username' => $username,
+                    'email'=> $email,
                     'password' => $hashedPassword,
                     'role' => 'user' // Par défaut, les nouveaux utilisateurs ont le rôle "user"
                 ]);
@@ -117,6 +119,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <label for="username">
                 <?= $text_translations[$language]['registerUsername'] ?>
                 <input type="text" id="username" name="username" required autofocus>
+            </label>
+            <label for="email">
+                <?= $text_translations[$language]['registerEmail'] ?>
+                <input type="email" id="email" name="email" required autofocus>
             </label>
 
             <label for="password">

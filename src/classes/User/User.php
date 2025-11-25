@@ -13,11 +13,12 @@ class User implements UserInterface
 
     private ?int $id;
     private string $username;
+    private string $email;
     private string $password;
     private string $role;
 
     // Constructeur pour initialiser l'objet
-    public function __construct(?int $id, string $username, string $password, string $role)
+    public function __construct(?int $id, string $username, string $email, string $password, string $role)
     {
 
         // Vérification des données
@@ -33,6 +34,7 @@ class User implements UserInterface
         // Initialisation des propriétés
         $this->id = $id;
         $this->username = $username;
+        $this->email = $email;
         $this->password = $password;
         $this->role = $role;
     }
@@ -46,6 +48,10 @@ class User implements UserInterface
     public function getUsername(): string
     {
         return $this->username;
+    }
+    public function getEmail(): string
+    {
+        return $this->email;
     }
 
     public function getRole(): string

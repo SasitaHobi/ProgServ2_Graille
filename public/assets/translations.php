@@ -88,6 +88,7 @@ $text_translations = [
         'registerError' => 'Erreur :',
         'registerSuccess' => 'Succès :',
         'registerUsername' => 'Nom d\'utilisateur',
+        'registerEmail'=> 'Email',
         'registerPwd' => 'Mot de passe (min. 8 caractères)',
         'registerConfirm' => 'Confirmer le mot de passe',
         'registerSubmit' => 'Créer mon compte',

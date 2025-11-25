@@ -34,6 +34,7 @@ class UsersManager implements UsersManagerInterface
             return new User(
                 $userData['id'],
                 $userData['username'],
+                $userData['email'],
                 $userData['password'],
                 $userData['role'],
             );
@@ -69,6 +70,7 @@ class UsersManager implements UsersManagerInterface
         return new User(
             $userData['id'],
             $userData['username'],
+            $userData['email'],
             $userData['password'],
             $userData['role']
         );
@@ -79,10 +81,12 @@ class UsersManager implements UsersManagerInterface
         // Définition de la requête SQL pour ajouter un utilisateur
         $sql = "INSERT INTO User (
             username,
+            email,
             password,
             role
         ) VALUES (
             :username,
+            :email,
             :password,
             :role
         )";
@@ -92,6 +96,7 @@ class UsersManager implements UsersManagerInterface
 
         // Lien avec les paramètres
         $stmt->bindValue(':username', $user->getUsername());
+        $stmt->bindValue(':email', $user->getEmail());
         $stmt->bindValue(':password', $user->getPassword());
         $stmt->bindValue(':role', $user->getRole());
 
