@@ -1,8 +1,12 @@
 <?php
-
 require __DIR__ . '/../../src/utils/autoloader.php';
 require_once __DIR__ . '/../assets/translations.php';
 require_once __DIR__ . '/../assets/language.php';
+
+use Food\FoodManager;
+use Food\Food;
+use User\User;
+use User\UsersManager;
 
 // Constantes
 const DATABASE_FILE = __DIR__ . '/../users.db';
@@ -23,21 +27,6 @@ if ($_SESSION['role'] !== 'admin') {
     header('Location: 403.php');
     exit();
 }
-
-// Sinon, récupère les autres informations de l'utilisateur
-$username = $_SESSION['username'];
-$role = $_SESSION['role'];
-
-// Récupère la liste de tous les utilisateurs (fonctionnalité d'administration)
-try {
-    $pdo = new PDO('sqlite:' . DATABASE_FILE);
-
-    $stmt = $pdo->query('SELECT * FROM users ORDER BY id');
-    $users = $stmt->fetchAll();
-} catch (PDOException $e) {
-    $users = [];
-    $error = 'Erreur lors de la récupération des utilisateurs : ' . $e->getMessage();
-}
 ?>
 
 <!DOCTYPE html>
@@ -46,42 +35,60 @@ try {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
-    <title>Page administrateur | Gestion des sessions</title>
+    <link rel="stylesheet" href="css/custom.css">
+
+    <title><?= $text_translations[$language]['adminTitle'] ?></title>
 </head>
 
 <body>
     <main class="container">
-        <h1>Page administrateur</h1>
+        <h1><?= $text_translations[$language]['adminView'] ?></h1>
 
-        <p>Cette page est accessible uniquement aux administrateurs.</p>
+        <p><?= $text_translations[$language]['adminP'] ?></p>
+        </head>
 
-        <h2>Gestion des utilisateurs</h2>
+        <p><a href="index.php"><?= $text_translations[$language]['viewBack'] ?></a></p>
+        <p><?= $text_translations[$language]['viewText'] ?></p>
 
-        <?php if (isset($error)) { ?>
-            <p><strong>Erreur :</strong> <?= htmlspecialchars($error) ?></p>
-        <?php } ?>
 
         <table>
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Nom d'utilisateur</th>
-                    <th>Rôle</th>
+                    <th><?= $att_translations[$language]['name'] ?></th>
+                    <th><?= $att_translations[$language]['userId'] ?></th>
+                    <th><?= $att_translations[$language]['peremption'] ?></th>
+                    <th><?= $att_translations[$language]['shop'] ?></th>
+                    <th><?= $att_translations[$language]['qty'] ?></th>
+                    <th><?= $att_translations[$language]['unit'] ?></th>
+                    <th><?= $att_translations[$language]['spot'] ?></th>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($users as $user) { ?>
+                <?php foreach ($food as $f) { ?>
                     <tr>
-                        <td><?= htmlspecialchars($user['id']) ?></td>
-                        <td><?= htmlspecialchars($user['username']) ?></td>
-                        <td><?= htmlspecialchars($user['role']) ?></td>
+                        <td><?= htmlspecialchars($f['name'] ?? '') ?></td>
+                        <td><?= htmlspecialchars($f['userId'] ?? '') ?></td>
+                        <td><?= htmlspecialchars($f['peremption'] ?? '') ?></td>
+                        <td><?= htmlspecialchars($f['shop'] ?? '') ?></td>
+                        <td><?= htmlspecialchars($f['qty'] ?? '') ?></td>
+                        <td><?= htmlspecialchars($f['unit'] ?? '') ?></td>
+                        <td><?= htmlspecialchars($f['spot'] ?? '') ?></td>
+                        <td>
+                            <a href="view.php?id=<?= htmlspecialchars($f["id"]) ?>">
+                                <button type="button"><?= $text_translations[$language]['viewButton'] ?></button>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="delete.php?id=<?= htmlspecialchars($f["id"]) ?>">
+                                <button type="button"><?= $text_translations[$language]['viewDelete'] ?></button>
+                            </a>
+                        </td>
                     </tr>
                 <?php } ?>
             </tbody>
         </table>
-
-        <p><a href="index.php">Retour à l'accueil</a> | <a href="./auth/logout.php">Se déconnecter</a></p>
     </main>
 </body>
 

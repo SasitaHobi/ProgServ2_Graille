@@ -72,7 +72,7 @@ class FoodManager implements FoodManagerInterface
     // Transformation du tableau associatif en objet Food
     return new Food(
         $foodData['id'],
-        $foodData['ueser_id'],
+        $foodData['user_id'],
         $foodData['name'],
         new \DateTime($foodData['peremption']),
         $foodData['shop'],

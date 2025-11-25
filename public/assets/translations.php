@@ -167,7 +167,8 @@ $att_translations = [
         'cupboard' => 'Cupboard',
         'fridge' => 'Fridge',
         'freezer' => 'Freezer',
-        'cellar' => 'Cellar'
+        'cellar' => 'Cellar',
+        'userId' => 'User id'
     ],
     'fr' => [
         'name' => 'Nom',
@@ -185,6 +186,7 @@ $att_translations = [
         'cupboard' => 'Armoire',
         'fridge' => 'Réfrigérateur',
         'freezer' => 'Congélateur',
-        'cellar' => 'Cave'
+        'cellar' => 'Cave',
+        'userId' => 'Id de l\'utilisateur'
     ]
 ];

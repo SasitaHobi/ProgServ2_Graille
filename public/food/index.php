@@ -117,11 +117,6 @@ $food = $stmt->fetchAll();
                                 <button type="button"><?= $text_translations[$language]['viewDelete'] ?></button>
                             </a>
                         </td>
-                        <td>
-                            <a href="../public/admin2.php?id=<?= htmlspecialchars($f["id"]) ?>">
-                                <button type="button"><?= $text_translations[$language]['adminView'] ?></button>
-                            </a>
-                        </td>
                     </tr>
                 <?php } ?>
             </tbody>
