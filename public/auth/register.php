@@ -16,7 +16,7 @@ const DATABASE_FILE = __DIR__ . '/../users.db';
 // Connexion à la base de données
 $config = parse_ini_file(DATABASE_CONFIGURATION_FILE, true);
 
-if (isset($_SESSION['user_id'])) {
+if ($success) {
     header('Location: ../food/index.php');
     exit();
 }
