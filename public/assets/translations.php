@@ -31,6 +31,7 @@ $text_translations = [
         'registerError' => 'Error :',
         'registerSuccess' => 'Success :',
         'registerUsername' => 'Username',
+        'registerEmail' => 'Email',
         'registerPwd' => 'Password (min. 8 caracters)',
         'registerConfirm' => 'Confirm password',
         'registerSubmit' => 'Create account',
@@ -130,7 +131,8 @@ $error_translations = [
         'registerFail' => 'Error creating account : ',
         'registerSuccess' => 'Account successfully created ! You may now login.',
         'loginError' => 'Wrong username or password',
-        'loginFail' => 'Error logging in : '
+        'loginFail' => 'Error logging in : ',
+        'registerEmailTkn' => 'Email already taken'
     ],
     'fr' => [
         'createName' => 'Le nom de l\'aliment doit contenir au moins 2 caractères.',
@@ -146,7 +148,8 @@ $error_translations = [
         'registerFail' => 'Erreur lors de la création du compte : ',
         'registerSuccess' => 'Compte créé avec succès ! Vous pouvez maintenant vous connecter.',
         'loginError' => 'Nom d\'utilisateur ou mot de passe incorrect.',
-        'loginFail' => 'Erreur lors de la connexion : '
+        'loginFail' => 'Erreur lors de la connexion : ',
+        'registerEmailTkn' => 'Email déjà utilisé'
 
     ]
 ];

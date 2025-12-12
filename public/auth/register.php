@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $confirmPassword = $_POST['confirm_password'] ?? '';
 
     // Validation des données
-    if (empty($username) || empty($password) || empty($confirmPassword)|| empty($email)) {
+    if (empty($username) || empty($password) || empty($confirmPassword) || empty($email)) {
         $error = $error_translations[$language]['registerEmpty'];;
     } elseif ($password !== $confirmPassword) {
         $error = $error_translations[$language]['registerPwdNoMatch'];;
@@ -69,12 +69,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         try {
 
             // Vérifier si l'utilisateur existe déjà
-            $stmt = $pdo->prepare('SELECT * FROM users WHERE username = :username');
+            $stmt = $pdo->prepare('SELECT * FROM users WHERE username = :username ');
             $stmt->execute(['username' => $username]);
             $user = $stmt->fetch();
 
+            $stmt = $pdo->prepare('SELECT * FROM users WHERE email = :email ');
+            $stmt->execute(['email' => $email]);
+            $user_mail = $stmt->fetch();
+
             if ($user) {
                 $error = $error_translations[$language]['registerUserTkn'];
+            } else if ($user_mail) {
+                $error = $error_translations[$language]['registerEmailTkn'];
             } else {
                 // Hacher le mot de passe
                 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
@@ -83,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $stmt = $pdo->prepare('INSERT INTO users (username,email, password, role) VALUES (:username, :email, :password, :role)');
                 $stmt->execute([
                     'username' => $username,
-                    'email'=> $email,
+                    'email' => $email,
                     'password' => $hashedPassword,
                     'role' => 'user' // Par défaut, les nouveaux utilisateurs ont le rôle "user"
                 ]);
@@ -112,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         if ($authentication) {
                             $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
                             $mail->Username = $smtp_username;
-                            $mail->Password =$smtp_password;
+                            $mail->Password = $smtp_password;
                         }
                         $mail->CharSet    = "UTF-8";
                         $mail->Encoding   = "base64";

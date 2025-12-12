@@ -35,8 +35,8 @@ class Database implements DatabaseInterface
 
         $sql = "CREATE TABLE IF NOT EXISTS users (
             id INT AUTO_INCREMENT PRIMARY KEY,
-            username VARCHAR(40) NOT NULL,
-            email VARCHAR(40) NOT NULL,
+            username VARCHAR(40) NOT NULL UNIQUE,
+            email VARCHAR(40) NOT NULL UNIQUE,
             password VARCHAR(500) NOT NULL,
             role VARCHAR(10) NOT NULL
         );";
