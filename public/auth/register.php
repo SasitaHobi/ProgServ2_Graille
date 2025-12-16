@@ -16,6 +16,10 @@ const DATABASE_FILE = __DIR__ . '/../users.db';
 // Connexion à la base de données
 $config = parse_ini_file(DATABASE_CONFIGURATION_FILE, true);
 
+// Initialise les variables
+$error = '';
+$success = '';
+
 if ($success) {
     header('Location: ../food/index.php');
     exit();
@@ -45,11 +49,6 @@ $stmt->execute();
 $sql = "USE `$database`;";
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
-
-
-// Initialise les variables
-$error = '';
-$success = '';
 
 // Traiter le formulaire d'inscription
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -129,8 +128,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         $mail->isHTML(true);
                         $mail->Subject = 'Création de votre compte';
-                        $mail->Body    = 'Félicitations, votre compte a bien été créé';
-                        $mail->AltBody = 'Félicitations, votre compte a bien été créé';
+                        $mail->Body    = 'Félicitations, votre compte sur graille.ch a bien été créé !';
+                        $mail->AltBody = 'Félicitations, votre compte sur graille.ch a bien été créé !';
 
                         $mail->send();
                     } catch (Exception $e) {
@@ -195,7 +194,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <p><?= $text_translations[$language]['registerAccount'] ?><a href="login.php"><?= $text_translations[$language]['registerLogin'] ?></a></p>
 
-        <p><a href="index.php"><?= $text_translations[$language]['registerBack'] ?></a></p>
+        <p><a href="../index.php"><?= $text_translations[$language]['registerBack'] ?></a></p>
     </main>
 </body>
 

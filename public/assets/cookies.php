@@ -1,4 +1,5 @@
 <?php
+
 // Constantes pour la gestion des cookies
 const COOKIE_LIFETIME = 60 * 60 * 24 * 30; // 30 jours
 const COOKIE_NAME = 'language';

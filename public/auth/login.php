@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['username'] = $user['username'];
                 $_SESSION['role'] = $user['role'];
 
-                header('Location: ../index.php');
+                header('Location: ../food/index.php');
                 exit();
             } else {
                 $error = $error_translations[$language]['loginError'];

@@ -33,7 +33,7 @@ class FoodManager implements FoodManagerInterface
         $food = array_map(function ($foodData) {
             return new Food(
                 $foodData['id'],
-                $foodData['ueser_id'],
+                $foodData['user_id'],
                 $foodData['name'],
                 new \DateTime($foodData['peremption']),
                 $foodData['shop'],
@@ -81,41 +81,6 @@ class FoodManager implements FoodManagerInterface
         $foodData['spot']
     );
 }
-
-//  public function getFoodByIdAndUser(int $id, int $user_id): ?Food
-// {
-//     // Définition de la requête SQL pour récupérer un aliment par ID
-//     $sql = "SELECT * FROM food WHERE id = :id AND user_id= :user_id";
-    
-//     // Préparation de la requête SQL
-//     $stmt = $this->database->getPdo()->prepare($sql);
-    
-//     // Lien avec le paramètre
-//     $stmt->bindValue(':id', $id);
-//     $stmt->bindValue(':user_id', $user_id);
-    
-//     // Exécution de la requête SQL
-//     $stmt->execute();
-    
-//     // Récupération de l'aliment
-//     $foodData = $stmt->fetch();
-    
-//     // Si l'aliment n'existe pas, retourner null
-//     if (!$foodData) {
-//         return null;
-//     }
-    
-//     // Transformation du tableau associatif en objet Food
-//     return new Food(
-//         $foodData['id'],
-//         $foodData['name'],
-//         new \DateTime($foodData['peremption']),
-//         $foodData['shop'],
-//         $foodData['qty'],
-//         $foodData['unit'],
-//         $foodData['spot']
-//     );
-// }
 
     public function addFood(Food $food): int
     {
@@ -172,4 +137,18 @@ class FoodManager implements FoodManagerInterface
         // Exécution de la requête SQL pour supprimer un aliment
         return $stmt->execute();
     }
+
+    public function updateFood(int $id, array $data): bool {
+    $sql = "UPDATE foods SET name = ?, shop = ?, qty = ?, unit = ?, spot = ?, peremption = ? WHERE id = ?";
+    $stmt = $this->database->getPdo()->prepare($sql);
+    return $stmt->execute([
+        $data['name'],
+        $data['shop'],
+        $data['qty'],
+        $data['unit'],
+        $data['spot'],
+        $data['peremption'],
+        $id
+    ]);
+}
 }

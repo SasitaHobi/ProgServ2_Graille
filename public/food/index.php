@@ -1,5 +1,6 @@
 <?php
 const DATABASE_CONFIGURATION_FILE = __DIR__ . '/../../src/config/database.ini';
+require __DIR__ . '/../../src/utils/autoloader.php';
 require_once __DIR__ . '/../assets/translations.php';
 require_once __DIR__ . '/../assets/language.php';
 
@@ -16,7 +17,7 @@ if (!isset($_SESSION['user_id'])) {
 $user_id = $_SESSION['user_id'];
 
 // Vérifie si l'utilisateur a le bon rôle
- if ($_SESSION['role'] === 'admin') {
+if ($_SESSION['role'] === 'admin') {
     // Redirige vers la page 403 si l'utilisateur n'est pas admin
     header('Location: ../admin.php');
     exit();
@@ -89,6 +90,13 @@ $food = $stmt->fetchAll();
 
 <body>
     <main class="container">
+
+        <header>
+            <a href="../index.php">
+                <button type="button"><?= $text_translations[$language]['logoutBack'] ?></button>
+            </a>
+        </header>
+
         <h1><?= $text_translations[$language]['indexH1'] ?></h1>
 
         <h2><?= $text_translations[$language]['indexH2'] ?></h2>

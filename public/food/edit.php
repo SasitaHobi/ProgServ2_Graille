@@ -7,42 +7,75 @@ use Food\Food;
 use Food\FoodManager;
 
 session_start();
+
 // Vérifie si l'utilisateur est authentifié
 if (!isset($_SESSION['user_id'])) {
-    // Redirige vers la page de connexion si l'utilisateur n'est pas connecté
     header('Location: auth/login.php');
     exit();
 }
+
 $user_id = $_SESSION['user_id'];
-
 $foodManager = new FoodManager();
+$error = null;
+$success = false;
 
-// vérification de l'ID
-if (!isset($_GET['id']) || !ctype_digit($_GET['id'])) {
+// Vérification de l'ID
+if (!isset($_GET['id'])) {
     header("Location: index.php");
     exit();
 }
 
 $id = (int) $_GET['id'];
 
-// récupération des données actuelles de l'aliment
-$food = $foodManager->getFood($id);
+// Récupération des données actuelles de l'aliment
+$food = $foodManager->getFoodById($id);
 
 if (!$food) {
-    echo $errors_translations[$language]['editFood'];
+    echo $error_translations[$language]['editFood'];
     exit();
 }
 
-// mettre à jour lorsque le formulaire est soumis
+// Vérification que l'aliment appartient à l'utilisateur connecté
+if (isset($food) && $food->getUserId() !== $user_id) {
+    header("Location: index.php");
+    exit();
+}
+
+// Mettre à jour lorsque le formulaire est soumis
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $updatedData = [
-        "name" => $_POST["name"] ?? "",
-        "shop" => $_POST["shop"] ?? "",
-        "qty" => $_POST["qty"] ?? 0,
-        "unit" => $_POST["unit"] ?? "",
-        "spot" => $_POST["spot"] ?? "",
-        "peremption" => $_POST["peremption"] ?? ""
-    ];
+    // Validation basique
+    $name = trim($_POST["name"] ?? "");
+    $shop = trim($_POST["shop"] ?? "");
+    $qty = $_POST["qty"] ?? 0;
+    $unit = $_POST["unit"] ?? "";
+    $spot = $_POST["spot"] ?? "";
+    $peremption = $_POST["peremption"] ?? "";
+
+    // Validation
+    if (empty($name)) {
+        $error = $errors_translations[$language]['nameRequired'] ?? "Le nom est requis";
+    } elseif (!is_numeric($qty) || $qty < 0) {
+        $error = $errors_translations[$language]['qtyInvalid'] ?? "La quantité doit être un nombre positif";
+    } else {
+        $updatedData = [
+            "name" => $name,
+            "shop" => $shop,
+            "qty" => (float) $qty,
+            "unit" => $unit,
+            "spot" => $spot,
+            "peremption" => $peremption
+        ];
+
+        // Mise à jour dans la base de données
+        $success = $foodManager->updateFood($id, $updatedData);
+
+        if ($success) {
+            header("Location: view.php?id=" . $id . "&updated=1");
+            exit();
+        } else {
+            $error = $errors_translations[$language]['updateFailed'] ?? "Échec de la mise à jour";
+        }
+    }
 }
 ?>
 
@@ -54,44 +87,42 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?=$text_translations[$language]['editTitle']?></title>
+    <title><?= $text_translations[$language]['editTitle'] ?></title>
 </head>
 
 <body>
     <main class="container">
-        <h1><?=$text_translations[$language]['viewBack']?></h1>
-        <p><a href="index.php"><?=$att_translations[$language]['spot']?></a></p>
+        <h1><?= $text_translations[$language]['viewBack'] ?></h1>
+        <p><a href="index.php"><?= $att_translations[$language]['spot'] ?></a></p>
 
         <form method="POST">
-            <label for="name"><?=$att_translations[$language]['name']?></label>
-            <input type="text" name="name" id="id" value="<?= htmlspecialchars($food['name']) ?>" required />
+            <label for="name"><?= $att_translations[$language]['name'] ?></label>
+            <input type="text" name="name" id="id" value="<?= htmlspecialchars($food->getName()) ?>" required />
 
-            <label for="shop"><?=$att_translations[$language]['shop']?></label>
-            <input type="text" name="shop" id="shop" value="<?= htmlspecialchars($food['shop']) ?>" required />
+            <label for="peremption"><?= $att_translations[$language]['peremption'] ?></label>
+            <input type="date" name="peremption" id="peremption" value="<?= htmlspecialchars($food->getPeremption()->format('Y-m-d')) ?>" />
 
-            <label for="qty"><?=$att_translations[$language]['qty']?></label>
-            <input type="number" name="qty" id="qty" value="<? htmlspecialchars($food['qty']) ?>" min="0" required />
+            <label for="shop"><?= $att_translations[$language]['shop'] ?></label>
+            <input type="text" name="shop" id="shop" value="<?= htmlspecialchars($food->getShop()) ?>" required />
 
-            <label for="unit"><?=$att_translations[$language]['unit']?></label>
+            <label for="qty"><?= $att_translations[$language]['qty'] ?></label>
+            <input type="number" name="qty" id="qty" value="<?= htmlspecialchars($food->getQty()) ?>" min="0" required />
+
+            <label for="unit"><?= $att_translations[$language]['unit'] ?></label>
             <select name="unit" id="unit">
                 <?php foreach (Food::UNIT as $key => $value) { ?>
-                    <option value="<?= $key ?>" <?= $food['unit'] == $key ? 'selected' : '' ?>><?= $value ?></option>
+                    <option value="<?= $key ?>" <?= $food->getUnit() == $key ? 'selected' : '' ?>><?= $value ?></option>
                 <?php } ?>
             </select>
 
-            <label for="spot"><?=$att_translations[$language]['spot']?></label>
+            <label for="spot"><?= $att_translations[$language]['spot'] ?></label>
             <select name="spot" id="spot">
                 <?php foreach (Food::SPOT as $key => $value) { ?>
-                    <option value="<?= $key ?>" <?= $food['spot'] == $key ? 'selected' : '' ?>><?= $value ?></option>
+                    <option value="<?= $key ?>" <?= $food->getSpot() == $key ? 'selected' : '' ?>><?= $value ?></option>
                 <?php } ?>
             </select>
 
-            <label for="peremption"><?=$att_translations[$language]['peremption']?></label>
-            <input type="date" name="peremption" id="peremption" value="<?= htmlspecialchars($food['peremption']) ?>" />
-
-            <div style="margin-top: 1rem; display: flex; gap: .5em;">
-                <button type="submit"><?=$text_translations[$language]['editH1']?></button>
-                <a href="view.php?id=<?= htmlspecialchars($food['id']) ?>"><button type="button" class="annulation">$text_translations[$language]['editCancel']</button></a>
+            <a href="view.php?id=<?= htmlspecialchars($food->getId()) ?>"><button type="button" class="save"><?= $text_translations[$language]['editSave'] ?></button></a>
             </div>
         </form>
     </main>

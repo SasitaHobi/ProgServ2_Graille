@@ -1,4 +1,5 @@
 <?php
+
 $text_translations = [
     'en' => [
         'language' => 'Language',
