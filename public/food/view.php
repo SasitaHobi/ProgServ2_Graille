@@ -24,8 +24,6 @@ if (isset($_GET["id"])) {
     // On récupère l'aliment correspondant à l'ID
     $food = $foodManager->getFoodById($foodId);
 
-    print_r($food);
-
     if (!$food) {
         header("Location: index.php");
         exit();

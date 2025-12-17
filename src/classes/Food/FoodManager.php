@@ -48,39 +48,39 @@ class FoodManager implements FoodManagerInterface
     }
 
     public function getFoodById(int $id): ?Food
-{
-    // Définition de la requête SQL pour récupérer un aliment par ID
-    $sql = "SELECT * FROM food WHERE id = :id";
-    
-    // Préparation de la requête SQL
-    $stmt = $this->database->getPdo()->prepare($sql);
-    
-    // Lien avec le paramètre
-    $stmt->bindValue(':id', $id);
-    
-    // Exécution de la requête SQL
-    $stmt->execute();
-    
-    // Récupération de l'aliment
-    $foodData = $stmt->fetch();
-    
-    // Si l'aliment n'existe pas, retourner null
-    if (!$foodData) {
-        return null;
+    {
+        // Définition de la requête SQL pour récupérer un aliment par ID
+        $sql = "SELECT * FROM food WHERE id = :id";
+
+        // Préparation de la requête SQL
+        $stmt = $this->database->getPdo()->prepare($sql);
+
+        // Lien avec le paramètre
+        $stmt->bindValue(':id', $id);
+
+        // Exécution de la requête SQL
+        $stmt->execute();
+
+        // Récupération de l'aliment
+        $foodData = $stmt->fetch();
+
+        // Si l'aliment n'existe pas, retourner null
+        if (!$foodData) {
+            return null;
+        }
+
+        // Transformation du tableau associatif en objet Food
+        return new Food(
+            $foodData['id'],
+            $foodData['user_id'],
+            $foodData['name'],
+            new \DateTime($foodData['peremption']),
+            $foodData['shop'],
+            $foodData['qty'],
+            $foodData['unit'],
+            $foodData['spot']
+        );
     }
-    
-    // Transformation du tableau associatif en objet Food
-    return new Food(
-        $foodData['id'],
-        $foodData['user_id'],
-        $foodData['name'],
-        new \DateTime($foodData['peremption']),
-        $foodData['shop'],
-        $foodData['qty'],
-        $foodData['unit'],
-        $foodData['spot']
-    );
-}
 
     public function addFood(Food $food): int
     {
@@ -138,17 +138,21 @@ class FoodManager implements FoodManagerInterface
         return $stmt->execute();
     }
 
-    public function updateFood(int $id, array $data): bool {
-    $sql = "UPDATE foods SET name = ?, shop = ?, qty = ?, unit = ?, spot = ?, peremption = ? WHERE id = ?";
-    $stmt = $this->database->getPdo()->prepare($sql);
-    return $stmt->execute([
-        $data['name'],
-        $data['shop'],
-        $data['qty'],
-        $data['unit'],
-        $data['spot'],
-        $data['peremption'],
-        $id
-    ]);
-}
+    public function updateFood(int $id, array $data): bool
+    {
+        $sql = "UPDATE food SET name = :name, shop = :shop, qty = :qty, unit = :unit, spot = :spot, peremption = :peremption WHERE id = :id";
+        $stmt = $this->database->getPdo()->prepare($sql);
+        $stmt->execute([
+            ':name' => $data['name'],
+            ':shop' => $data['shop'],
+            ':qty' => $data['qty'],
+            ':unit' => $data['unit'],
+            ':spot' => $data['spot'],
+            ':peremption' => $data['peremption'],
+            ':id' => $id
+        ]);
+
+        // Retourne true si au moins 1 ligne a été modifiée
+        return $stmt->rowCount() > 0;
+    }
 }

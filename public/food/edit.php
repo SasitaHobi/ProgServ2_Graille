@@ -70,7 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $success = $foodManager->updateFood($id, $updatedData);
 
         if ($success) {
-            header("Location: view.php?id=" . $id . "&updated=1");
+            header("Location: view.php?id=" . $id);
             exit();
         } else {
             $error = $errors_translations[$language]['updateFailed'] ?? "Échec de la mise à jour";
