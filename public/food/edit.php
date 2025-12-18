@@ -36,7 +36,7 @@ if (!$food) {
     exit();
 }
 
-// Vérification que l'aliment appartient à l'utilisateur connecté 
+// si l'aliment n'appartient pas à l'utilisateur connecté et qu'il n'est pas l'admin
 if (isset($food) && $food->getUserId() !== $user_id && $user_id !== $admin_id) {
     header("Location: index.php");
     exit();
