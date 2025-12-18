@@ -4,7 +4,8 @@ namespace Food;
 
 use DateTime;
 
-interface FoodInterface {
+interface FoodInterface
+{
     public function getId(): ?int;
     public function getName(): string;
     public function getPeremption(): DateTime;

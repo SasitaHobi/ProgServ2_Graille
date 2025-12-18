@@ -1,4 +1,5 @@
 <?php
+
 namespace Database;
 
 class Database implements DatabaseInterface
@@ -44,7 +45,7 @@ class Database implements DatabaseInterface
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
 
-        
+
         // Création de la table `food` si elle n'existe pas
         $sql = "CREATE TABLE IF NOT EXISTS food (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -60,7 +61,6 @@ class Database implements DatabaseInterface
 
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
-
     }
 
     public function getPdo(): \PDO

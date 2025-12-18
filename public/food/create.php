@@ -153,18 +153,33 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <meta name="color-scheme" content="light dark">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
 
-    <title><?=$text_translations[$language]['createTitle']?></title>
+    <title><?= $text_translations[$language]['createTitle'] ?></title>
 </head>
 
 <body>
+    <header>
+        <a href="../index.php">
+            <button type="button"><?= $text_translations[$language]['logoutBack'] ?></button>
+        </a>
+
+        <a href="index.php">
+            <button type="button"><?= $text_translations[$language]['homeButton'] ?></button>
+        </a>
+
+        <a href="../auth/logout.php">
+            <button type="button"><?= $text_translations[$language]['registerLogout'] ?></button>
+        </a>
+
+    </header>
+
     <main class="container">
-        <h1><?=$text_translations[$language]['createH1']?></h1>
+        <h1><?= $text_translations[$language]['createH1'] ?></h1>
 
         <?php if ($_SERVER["REQUEST_METHOD"] === "POST") { ?>
             <?php if (empty($errors)) { ?>
-                <p style="color: green;"><?=$text_translations[$language]['createSuccess']?></p>
+                <p style="color: green;"><?= $text_translations[$language]['createSuccess'] ?></p>
             <?php } else { ?>
-                <p style="color: red;"><?=$text_translations[$language]['createError']?></p>
+                <p style="color: red;"><?= $text_translations[$language]['createError'] ?></p>
                 <ul>
                     <?php foreach ($errors as $error) { ?>
                         <li><?php echo $error; ?></li>
@@ -175,37 +190,37 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         <!-- à changer -->
         <form action="create.php" method="POST">
-            <label for="name"><?=$att_translations[$language]['name']?></label>
+            <label for="name"><?= $att_translations[$language]['name'] ?></label>
             <input type="text" id="name" name="name" value="<?= htmlspecialchars($name ?? '') ?>" required minlength="2">
 
-            <label for="peremption"><?=$att_translations[$language]['peremption']?></label>
+            <label for="peremption"><?= $att_translations[$language]['peremption'] ?></label>
             <input type="date" id="peremption" name="peremption" value="<?= htmlspecialchars($peremption ?? '') ?>" required>
 
-            <label for="shop"><?=$att_translations[$language]['shop']?></label>
+            <label for="shop"><?= $att_translations[$language]['shop'] ?></label>
             <input type="text" id="shop" name="shop" value="<?= htmlspecialchars($shop ?? '') ?>">
 
-            <label for="qty"><?=$att_translations[$language]['qty']?></label>
+            <label for="qty"><?= $att_translations[$language]['qty'] ?></label>
             <input type="number" id="qty" name="qty" value="<?= htmlspecialchars($qty ?? '') ?>" required min="0">
 
-            <label for="unit"><?=$att_translations[$language]['unit']?></label>
+            <label for="unit"><?= $att_translations[$language]['unit'] ?></label>
             <select id="unit" name="unit" required>
-                <option value="pack"><?=$att_translations[$language]['pack']?></option>
-                <option value="piece"><?=$att_translations[$language]['piece']?></option>
-                <option value="ml"><?=$att_translations[$language]['ml']?></option>
-                <option value="l"><?=$att_translations[$language]['l']?></option>
-                <option value="g"><?=$att_translations[$language]['g']?></option>
-                <option value="kg"><?=$att_translations[$language]['kg']?></option>
+                <option value="pack"><?= $att_translations[$language]['pack'] ?></option>
+                <option value="piece"><?= $att_translations[$language]['piece'] ?></option>
+                <option value="ml"><?= $att_translations[$language]['ml'] ?></option>
+                <option value="l"><?= $att_translations[$language]['l'] ?></option>
+                <option value="g"><?= $att_translations[$language]['g'] ?></option>
+                <option value="kg"><?= $att_translations[$language]['kg'] ?></option>
             </select>
 
-            <label for="spot"><?=$att_translations[$language]['spot']?></label>
+            <label for="spot"><?= $att_translations[$language]['spot'] ?></label>
             <select id="spot" name="spot" required>
-                <option value="cupboard"><?=$att_translations[$language]['cupboard']?></option>
-                <option value="fridge"><?=$att_translations[$language]['fridge']?></option>
-                <option value="freezer"><?=$att_translations[$language]['freezer']?></option>
-                <option value="cellar"><?=$att_translations[$language]['cellar']?></option>
+                <option value="cupboard"><?= $att_translations[$language]['cupboard'] ?></option>
+                <option value="fridge"><?= $att_translations[$language]['fridge'] ?></option>
+                <option value="freezer"><?= $att_translations[$language]['freezer'] ?></option>
+                <option value="cellar"><?= $att_translations[$language]['cellar'] ?></option>
 
             </select>
-            <button type="submit"><?=$text_translations[$language]['createH1']?></button>
+            <button type="submit"><?= $text_translations[$language]['createH1'] ?></button>
         </form>
     </main>
 </body>

@@ -85,15 +85,32 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <html lang="fr">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+
     <title><?= $text_translations[$language]['editTitle'] ?></title>
 </head>
 
 <body>
+
+    <header>
+        <a href="../index.php">
+            <button type="button"><?= $text_translations[$language]['logoutBack'] ?></button>
+        </a>
+
+        <a href="index.php">
+            <button type="button"><?= $text_translations[$language]['homeButton'] ?></button>
+        </a>
+
+        <a href="../auth/logout.php">
+            <button type="button"><?= $text_translations[$language]['registerLogout'] ?></button>
+        </a>
+    </header>
+
     <main class="container">
-        <h1><?= $text_translations[$language]['viewBack'] ?></h1>
-        <p><a href="index.php"><?= $att_translations[$language]['spot'] ?></a></p>
+        <h1><?= $text_translations[$language]['editTitle'] ?></h1>
 
         <form method="POST">
             <label for="name"><?= $att_translations[$language]['name'] ?></label>
@@ -122,7 +139,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <?php } ?>
             </select>
 
-            <a href="view.php?id=<?= htmlspecialchars($food->getId()) ?>"><button type="button" class="save"><?= $text_translations[$language]['editSave'] ?></button></a>
+            <!-- bouton pour sauvegarder changements -->
+            <button type="submit" class="save">
+                <?= $text_translations[$language]['editSave'] ?>
+            </button>
+
+            <!-- bouton pour annuler changements -->
+            <a href="view.php?id=<?= htmlspecialchars($food->getId()) ?>">
+                <button type="button" class="cancel">
+                    <?= $text_translations[$language]['editCancel'] ?? 'Annuler' ?>
+                </button>
+            </a>
             </div>
         </form>
     </main>

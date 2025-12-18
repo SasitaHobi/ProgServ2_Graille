@@ -27,16 +27,16 @@ session_destroy();
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
-    <title><?=$text_translations[$language]['logoutTitle']?></title>
+    <title><?= $text_translations[$language]['logoutTitle'] ?></title>
 </head>
 
 <body>
     <main class="container">
-        <h1><?=$text_translations[$language]['logoutH1']?></h1>
+        <h1><?= $text_translations[$language]['logoutH1'] ?></h1>
 
-        <p><?=$text_translations[$language]['logoutText']?></p>
+        <p><?= $text_translations[$language]['logoutText'] ?></p>
 
-        <p><a href="../index.php"><?=$text_translations[$language]['logoutBack']?></a> | <a href="login.php"><?=$text_translations[$language]['registerLogin']?></a></p>
+        <p><a href="../index.php"><?= $text_translations[$language]['logoutBack'] ?></a> | <a href="login.php"><?= $text_translations[$language]['registerLogin'] ?></a></p>
     </main>
 </body>
 

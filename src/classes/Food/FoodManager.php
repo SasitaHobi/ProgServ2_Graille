@@ -142,15 +142,17 @@ class FoodManager implements FoodManagerInterface
     {
         $sql = "UPDATE food SET name = :name, shop = :shop, qty = :qty, unit = :unit, spot = :spot, peremption = :peremption WHERE id = :id";
         $stmt = $this->database->getPdo()->prepare($sql);
-        $stmt->execute([
-            ':name' => $data['name'],
-            ':shop' => $data['shop'],
-            ':qty' => $data['qty'],
-            ':unit' => $data['unit'],
-            ':spot' => $data['spot'],
-            ':peremption' => $data['peremption'],
-            ':id' => $id
-        ]);
+
+        $stmt->bindValue(':name', $data['name']);
+        $stmt->bindValue(':shop', $data['shop']);
+        $stmt->bindValue(':qty', $data['qty']);
+        $stmt->bindValue(':unit', $data['unit']);
+        $stmt->bindValue(':spot', $data['spot']);
+        $stmt->bindValue(':peremption', $data['peremption']);
+        $stmt->bindValue(':id', $id);
+
+        $stmt->execute();
+
 
         // Retourne true si au moins 1 ligne a été modifiée
         return $stmt->rowCount() > 0;

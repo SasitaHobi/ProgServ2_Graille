@@ -2,7 +2,8 @@
 
 namespace User;
 
-interface UsersManagerInterface {
+interface UsersManagerInterface
+{
     public function getUser(): array;
     public function addUser(User $user): int;
     public function removeUser(int $id): bool;

@@ -2,6 +2,7 @@
 
 namespace Database;
 
-interface DatabaseInterface {
+interface DatabaseInterface
+{
     public function getPdo(): \PDO;
 }

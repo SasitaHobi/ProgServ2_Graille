@@ -49,9 +49,24 @@ if (isset($_GET["id"])) {
 </head>
 
 <body>
+
+    <header>
+        <a href="../index.php">
+            <button type="button"><?= $text_translations[$language]['logoutBack'] ?></button>
+        </a>
+
+        <a href="index.php">
+            <button type="button"><?= $text_translations[$language]['homeButton'] ?></button>
+        </a>
+
+        <a href="../auth/logout.php">
+            <button type="button"><?= $text_translations[$language]['registerLogout'] ?></button>
+        </a>
+    </header>
+
     <main class="container">
         <h1><?= $text_translations[$language]['viewH1'] ?></h1>
-        <p><a href="index.php"><?= $text_translations[$language]['viewBack'] ?></a></p>
+
         <a href="edit.php?id=<?= $food->getId() ?>">
             <button type="button"><?= $text_translations[$language]['editH1'] ?></button>
         </a>
