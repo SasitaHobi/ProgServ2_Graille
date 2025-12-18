@@ -95,7 +95,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     if (empty($peremption)) {
-
         $errors[] = $error_translation[$language]['createPeremption'];
     }
 
