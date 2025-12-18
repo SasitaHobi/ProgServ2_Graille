@@ -94,6 +94,21 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $errors[] = $error_translation[$language]['createSpot'];
     }
 
+    if (empty($peremption)) {
+
+        $errors[] = $error_translation[$language]['createPeremption'];
+    }
+
+    if (!empty($peremption)) {
+        $peremptionDate = new DateTime($peremption);
+
+        $today = new DateTime('today'); // aujourd'hui (ou hier) à minuit
+
+        if ($peremptionDate < $today) {
+            $errors[] = $error_translation[$language]['createPeremption'];
+        }
+    }
+
 
     // Si pas d'erreurs, insertion dans la base de données
     if (empty($errors)) {
