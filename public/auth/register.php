@@ -157,6 +157,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 
 <body>
+
+    <header>
+        <a href="../index.php">
+            <button type="button"><?= $text_translations[$language]['logoutBack'] ?></button>
+        </a>
+    </header>
+
     <main class="container">
         <h1><?= $text_translations[$language]['registerH1'] ?></h1>
 
@@ -194,7 +201,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <p><?= $text_translations[$language]['registerAccount'] ?><a href="login.php"><?= $text_translations[$language]['registerLogin'] ?></a></p>
 
-        <p><a href="../index.php"><?= $text_translations[$language]['registerBack'] ?></a></p>
     </main>
 </body>
 

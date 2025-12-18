@@ -36,7 +36,14 @@ session_destroy();
 
         <p><?= $text_translations[$language]['logoutText'] ?></p>
 
-        <p><a href="../index.php"><?= $text_translations[$language]['logoutBack'] ?></a> | <a href="login.php"><?= $text_translations[$language]['registerLogin'] ?></a></p>
+        <a href="../index.php">
+            <button type="button"><?= $text_translations[$language]['logoutBack'] ?></button>
+        </a>
+
+        <a href="login.php">
+            <button type="button"><?= $text_translations[$language]['registerLogin'] ?></button>
+        </a>
+
     </main>
 </body>
 

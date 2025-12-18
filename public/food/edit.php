@@ -15,6 +15,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $user_id = $_SESSION['user_id'];
+$admin_id = 1;
 $foodManager = new FoodManager();
 $error = null;
 $success = false;
@@ -35,8 +36,8 @@ if (!$food) {
     exit();
 }
 
-// Vérification que l'aliment appartient à l'utilisateur connecté
-if (isset($food) && $food->getUserId() !== $user_id) {
+// Vérification que l'aliment appartient à l'utilisateur connecté 
+if (isset($food) && $food->getUserId() !== $user_id && $user_id !== $admin_id) {
     header("Location: index.php");
     exit();
 }

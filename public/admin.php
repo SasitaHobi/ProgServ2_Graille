@@ -83,15 +83,22 @@ $food = $stmt->fetchAll();
 </head>
 
 <body>
+
+    <header>
+        <a href="../index.php">
+            <button type="button"><?= $text_translations[$language]['logoutBack'] ?></button>
+        </a>
+
+        <a href="../auth/logout.php">
+            <button type="button"><?= $text_translations[$language]['registerLogout'] ?></button>
+        </a>
+    </header>
+
     <main class="container">
         <h1><?= $text_translations[$language]['adminView'] ?></h1>
 
         <p><?= $text_translations[$language]['adminP'] ?></p>
         </head>
-
-        <p><a href="index.php"><?= $text_translations[$language]['viewBack'] ?></a></p>
-        <p><?= $text_translations[$language]['viewText'] ?></p>
-
 
         <table>
             <thead>
