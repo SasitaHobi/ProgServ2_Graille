@@ -15,7 +15,6 @@ if (!isset($_SESSION['user_id'])) {
 }
 $user_id = $_SESSION['user_id'];
 
-
 if (!$config) {
     throw new Exception("Erreur lors de la lecture du fichier de configuration : " . DATABASE_CONFIGURATION_FILE);
 }
@@ -40,6 +39,19 @@ $stmt->execute();
 $sql = "USE `$database`;";
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
+
+// rediriger vers page 403 lorsque qu'un utilisateur non-admin tente d'aller sur la page admin
+$sql ="SELECT role FROM users WHERE id = :user_id";
+$stmt = $pdo->prepare($sql);
+$stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+$stmt->execute();
+
+$user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+if (!$user ||$user['role'] !== 'admin') {
+    header('Location: 403.php');
+    exit();
+}
 
 $sql = "CREATE TABLE IF NOT EXISTS food (
     id INT AUTO_INCREMENT PRIMARY KEY,
