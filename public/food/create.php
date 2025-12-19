@@ -70,7 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     $errors = [];
 
-    // à checker
+    // vérifications
 
     if (empty($name) || strlen($name) < 2) {
         $errors[] = $error_translation[$language]['createName'];

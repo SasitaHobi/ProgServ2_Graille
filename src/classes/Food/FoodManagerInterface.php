@@ -2,6 +2,7 @@
 
 namespace Food;
 
+// Définition des actions de base pour la gestion des aliments
 interface FoodManagerInterface
 {
     public function getFood(): array;

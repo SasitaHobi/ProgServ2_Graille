@@ -69,6 +69,7 @@ $food = $stmt->fetchAll();
 
 ?>
 
+
 <!DOCTYPE html>
 <html lang="fr">
 

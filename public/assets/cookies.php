@@ -26,6 +26,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['language'])) {
 $language = $_COOKIE[COOKIE_NAME] ?? DEFAULT_LANGUAGE;
 ?>
 
+
+
 <!DOCTYPE html>
 <html lang="fr">
 

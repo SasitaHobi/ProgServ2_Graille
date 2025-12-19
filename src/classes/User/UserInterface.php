@@ -2,6 +2,7 @@
 
 namespace User;
 
+// Définition des infos debase d'un utilisateur
 interface UserInterface
 {
     public function getId(): ?int;

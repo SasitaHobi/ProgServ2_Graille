@@ -2,6 +2,7 @@
 
 namespace User;
 
+// Définition actions de base pour gestion des utilisateurs
 interface UsersManagerInterface
 {
     public function getUser(): array;
