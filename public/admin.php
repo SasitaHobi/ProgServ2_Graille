@@ -99,7 +99,6 @@ $food = $stmt->fetchAll();
         <h1><?= $text_translations[$language]['adminView'] ?></h1>
 
         <p><?= $text_translations[$language]['adminP'] ?></p>
-        </head>
 
         <table>
             <thead>
@@ -121,8 +120,8 @@ $food = $stmt->fetchAll();
                         <td><?= htmlspecialchars($f['peremption'] ?? '') ?></td>
                         <td><?= htmlspecialchars($f['shop'] ?? '') ?></td>
                         <td><?= htmlspecialchars($f['qty'] ?? '') ?></td>
-                        <td><?= htmlspecialchars($f['unit'] ?? '') ?></td>
-                        <td><?= htmlspecialchars($f['spot'] ?? '') ?></td>
+                        <td><?= htmlspecialchars($att_translations[$language][$f['unit']] ?? $f['unit']) ?></td>
+                        <td><?= htmlspecialchars($att_translations[$language][$f['spot']] ?? $f['spot']) ?></td>
                         <td>
                             <a href="food/view.php?id=<?= htmlspecialchars($f["id"]) ?>">
                                 <button type="button"><?= $text_translations[$language]['viewButton'] ?></button>
