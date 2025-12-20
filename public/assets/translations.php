@@ -56,9 +56,11 @@ $text_translations = [
         'loginBack' => 'Back to homepage',
         'adminView' => 'Admin view',
         'adminTitle' => 'Admin page | Food management',
-        'adminP' => 'This page is only available to administrators.'
-
-
+        'adminP' => 'This page is only available to administrators.',
+        '403Title' => 'Access denied | Graille',
+        '403H1' => 'Access denied',
+        '403Text' => 'You do not have the necessary permissions to access this page.',
+        '403Back' => 'Back to homepage'
     ],
     'fr' => [
         'language' => 'Langue',
@@ -114,7 +116,11 @@ $text_translations = [
         'loginBack' => 'Retour à l\'accueil',
         'adminView' => 'Vue admin',
         'adminTitle' => 'Page administrateur | Gestion des aliments',
-        'adminP' => 'Cette page est accessible uniquement aux administrateurs.'
+        'adminP' => 'Cette page est accessible uniquement aux administrateurs.',
+        '403Title' => 'Accès refusé | Graille',
+        '403H1' => 'Accès refusé',
+        '403Text' => "Vous n'avez pas les autorisations nécessaires pour accéder à cette page.",
+        '403Back' => 'Retour à l\'accueil'
     ]
 ];
 $error_translations = [
