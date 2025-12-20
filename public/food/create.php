@@ -1,6 +1,9 @@
 <?php
+
+// Démarre la session
 session_start();
 
+// Constantes et liens
 const DATABASE_CONFIGURATION_FILE = __DIR__ . '/../../src/config/database.ini';
 require __DIR__ . '/../../src/utils/autoloader.php';
 require_once __DIR__ . '/../assets/translations.php';
@@ -14,9 +17,8 @@ if (!isset($_SESSION['user_id'])) {
 }
 $user_id = $_SESSION['user_id'];
 
-// Documentation : https://www.php.net/manual/fr/function.parse-ini-file.php
+// Connexion à la base de données
 $config = parse_ini_file(DATABASE_CONFIGURATION_FILE, true);
-
 
 if (!$config) {
     throw new Exception("Erreur lors de la lecture du fichier de configuration : " . DATABASE_CONFIGURATION_FILE);
@@ -28,9 +30,7 @@ $database = $config['database'];
 $username = $config['username'];
 $password = $config['password'];
 
-// Documentation :
-//   - https://www.php.net/manual/fr/pdo.connections.php
-//   - https://www.php.net/manual/fr/ref.pdo-mysql.connection.php
+
 $pdo = new PDO("mysql:host=$host;port=$port;charset=utf8mb4", $username, $password);
 
 // Création de la base de données si elle n'existe pas
@@ -89,7 +89,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $errors[] = $error_translation[$language]['createUnit'];
     }
 
-    // aussi liste déroulante
     if (empty($spot)) {
         $errors[] = $error_translation[$language]['createSpot'];
     }
@@ -98,15 +97,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $errors[] = $error_translation[$language]['createPeremption'];
     }
 
-    if (!empty($peremption)) {
-        $peremptionDate = new DateTime($peremption);
+    // Code à utiliser si nous voulons interdire les dates de péremption dans le passé,
+    // mais nous avons décidé qu'un utilisateur avait le droit de rajouter ses vielles 
+    // boîtes de conserves aussi, pour se souvenir de les utiliser
 
-        $today = new DateTime('today'); // aujourd'hui (ou hier) à minuit
+    // if (!empty($peremption)) {
+    //     $peremptionDate = new DateTime($peremption);
 
-        if ($peremptionDate < $today) {
-            $errors[] = $error_translation[$language]['createPeremption'];
-        }
-    }
+    //     $today = new DateTime('today');
+
+    //     if ($peremptionDate < $today) {
+    //         $errors[] = $error_translation[$language]['createPeremption'];
+    //     }
+    // }
 
 
     // Si pas d'erreurs, insertion dans la base de données
@@ -202,7 +205,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <?php } ?>
         <?php } ?>
 
-        <!-- à changer -->
         <form action="create.php" method="POST">
             <label for="name"><?= $att_translations[$language]['name'] ?></label>
             <input type="text" id="name" name="name" value="<?= htmlspecialchars($name ?? '') ?>" required minlength="2">

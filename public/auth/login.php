@@ -3,12 +3,14 @@
 // Démarre la session
 session_start();
 
+// Constantes et liens
 require __DIR__ . '/../../src/utils/autoloader.php';
 require_once __DIR__ . '/../assets/translations.php';
 require_once __DIR__ . '/../assets/language.php';
 
-// Constantes
 const DATABASE_CONFIGURATION_FILE = __DIR__ . '/../../src/config/database.ini';
+
+// Connexion à la base de données
 $config = parse_ini_file(DATABASE_CONFIGURATION_FILE, true);
 
 if (!$config) {

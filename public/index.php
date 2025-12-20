@@ -1,6 +1,9 @@
 <?php
+
+// Démarre la session
 session_start();
 
+// Constantes et liens
 require __DIR__ . '/../src/utils/autoloader.php';
 require_once 'assets/translations.php';
 require_once 'assets/language.php';
@@ -76,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['language'])) {
         </form>
     </header>
 
-    <!-- accueil normal -->
+    <!-- accueil -->
     <main class="container">
         <h1><?= $text_translations[$language]['homeH1'] ?></h1>
 

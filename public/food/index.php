@@ -1,13 +1,16 @@
 <?php
+
+// Démarre la session
+session_start();
+
+// Constantes et liens
 const DATABASE_CONFIGURATION_FILE = __DIR__ . '/../../src/config/database.ini';
 require __DIR__ . '/../../src/utils/autoloader.php';
 require_once __DIR__ . '/../assets/translations.php';
 require_once __DIR__ . '/../assets/language.php';
 
-// Documentation : https://www.php.net/manual/fr/function.parse-ini-file.php
 $config = parse_ini_file(DATABASE_CONFIGURATION_FILE, true);
 
-session_start();
 // Vérifie si l'utilisateur est authentifié
 if (!isset($_SESSION['user_id'])) {
     // Redirige vers la page de connexion si l'utilisateur n'est pas connecté
@@ -18,12 +21,12 @@ $user_id = $_SESSION['user_id'];
 
 // Vérifie si l'utilisateur a le bon rôle
 if ($_SESSION['role'] === 'admin') {
-    // Redirige vers la page 403 si l'utilisateur n'est pas admin
+    // Redirige vers la page admin.php si l'utilisateur est admin
     header('Location: ../admin.php');
     exit();
 }
 
-
+// Connexion à la base de données
 if (!$config) {
     throw new Exception("Erreur lors de la lecture du fichier de configuration : " . DATABASE_CONFIGURATION_FILE);
 }
@@ -34,9 +37,6 @@ $database = $config['database'];
 $username = $config['username'];
 $password = $config['password'];
 
-// Documentation :
-//   - https://www.php.net/manual/fr/pdo.connections.php
-//   - https://www.php.net/manual/fr/ref.pdo-mysql.connection.php
 $pdo = new PDO("mysql:host=$host;port=$port;charset=utf8mb4", $username, $password);
 
 // Création de la base de données si elle n'existe pas

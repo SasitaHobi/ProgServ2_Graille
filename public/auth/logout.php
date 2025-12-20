@@ -1,11 +1,14 @@
 <?php
 
+// Démarrer la session
+session_start();
+
+// Constantes et liens
 require __DIR__ . '/../../src/utils/autoloader.php';
 require_once __DIR__ . '/../assets/translations.php';
 require_once __DIR__ . '/../assets/language.php';
 
-// Démarrer la session
-session_start();
+
 
 // Vérifie si l'utilisateur est authentifié
 $userId = $_SESSION['user_id'] ?? null;

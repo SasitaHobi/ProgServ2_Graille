@@ -1,19 +1,15 @@
 <?php
+
+// Démarre la session
+session_start();
+
+// Constantes et liens
 const DATABASE_CONFIGURATION_FILE = __DIR__ . '/../src/config/database.ini';
 require_once __DIR__ . '/assets/translations.php';
 require_once __DIR__ . '/assets/language.php';
 
-// Documentation : https://www.php.net/manual/fr/function.parse-ini-file.php
+// Connexion à la base de données
 $config = parse_ini_file(DATABASE_CONFIGURATION_FILE, true);
-
-session_start();
-// Vérifie si l'utilisateur est authentifié
-if (!isset($_SESSION['user_id'])) {
-    // Redirige vers la page de connexion si l'utilisateur n'est pas connecté
-    header('Location: ../auth/login.php');
-    exit();
-}
-$user_id = $_SESSION['user_id'];
 
 if (!$config) {
     throw new Exception("Erreur lors de la lecture du fichier de configuration : " . DATABASE_CONFIGURATION_FILE);
@@ -25,9 +21,15 @@ $database = $config['database'];
 $username = $config['username'];
 $password = $config['password'];
 
-// Documentation :
-//   - https://www.php.net/manual/fr/pdo.connections.php
-//   - https://www.php.net/manual/fr/ref.pdo-mysql.connection.php
+// Vérifie si l'utilisateur est authentifié
+if (!isset($_SESSION['user_id'])) {
+    // Redirige vers la page de connexion si l'utilisateur n'est pas connecté
+    header('Location: ../auth/login.php');
+    exit();
+}
+$user_id = $_SESSION['user_id'];
+
+
 $pdo = new PDO("mysql:host=$host;port=$port;charset=utf8mb4", $username, $password);
 
 // Création de la base de données si elle n'existe pas
@@ -53,6 +55,7 @@ if (!$user ||$user['role'] !== 'admin') {
     exit();
 }
 
+// Création de la table si elle n'existe pas
 $sql = "CREATE TABLE IF NOT EXISTS food (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
@@ -73,7 +76,6 @@ $stmt->execute();
 $sql = "SELECT * FROM food";
 $stmt = $pdo->prepare($sql);
 
-//$stmt->bindValue(':user_id', $user_id);
 
 $stmt->execute();
 

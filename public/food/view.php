@@ -1,4 +1,9 @@
 <?php
+
+// Démarre la session
+session_start();
+
+// Constantes et liens
 require __DIR__ . '/../../src/utils/autoloader.php';
 require_once __DIR__ . '/../assets/translations.php';
 require_once __DIR__ . '/../assets/language.php';
@@ -6,7 +11,7 @@ require_once __DIR__ . '/../assets/language.php';
 use Food\FoodManager;
 use Food\Food;
 
-session_start();
+
 // Vérifie si l'utilisateur est authentifié
 if (!isset($_SESSION['user_id'])) {
     // Redirige vers la page de connexion si l'utilisateur n'est pas connecté

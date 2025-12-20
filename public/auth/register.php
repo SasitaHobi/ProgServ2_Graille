@@ -1,6 +1,8 @@
 <?php
+// Démarre la session
 session_start();
 
+// Constantes et liens
 const DATABASE_CONFIGURATION_FILE = __DIR__ . '/../../src/config/database.ini';
 const MAIL_CONFIGURATION_FILE     = __DIR__ . '/../../src/config/mail.ini';
 require __DIR__ . '/../../src/utils/autoloader.php';
@@ -10,11 +12,8 @@ require_once __DIR__ . '/../assets/language.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-// Constantes
 const DATABASE_FILE = __DIR__ . '/../users.db';
 
-// Connexion à la base de données
-$config = parse_ini_file(DATABASE_CONFIGURATION_FILE, true);
 
 // Initialise les variables
 $error = '';
@@ -24,6 +23,10 @@ if ($success) {
     header('Location: ../food/index.php');
     exit();
 }
+
+// Connexion à la base de données
+$config = parse_ini_file(DATABASE_CONFIGURATION_FILE, true);
+
 
 if (!$config) {
     throw new Exception("Erreur lors de la lecture du fichier de configuration : " . DATABASE_CONFIGURATION_FILE);
@@ -35,9 +38,6 @@ $database = $config['database'];
 $username = $config['username'];
 $password = $config['password'];
 
-// Documentation :
-//   - https://www.php.net/manual/fr/pdo.connections.php
-//   - https://www.php.net/manual/fr/ref.pdo-mysql.connection.php
 $pdo = new PDO("mysql:host=$host;port=$port;charset=utf8mb4", $username, $password);
 
 // Création de la base de données si elle n'existe pas
@@ -81,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             } else if ($user_mail) {
                 $error = $error_translations[$language]['registerEmailTkn'];
             } else {
-                // Hacher le mot de passe
+                // Hasher le mot de passe
                 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
                 // Insérer le nouvel utilisateur

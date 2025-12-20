@@ -1,4 +1,8 @@
 <?php
+// Démarre la session
+session_start();
+
+// Constantes et liens
 require __DIR__ . '/../../src/utils/autoloader.php';
 require_once __DIR__ . '/../assets/translations.php';
 require_once __DIR__ . '/../assets/language.php';
@@ -6,7 +10,6 @@ require_once __DIR__ . '/../assets/language.php';
 use Food\Food;
 use Food\FoodManager;
 
-session_start();
 
 // Vérifie si l'utilisateur est authentifié
 if (!isset($_SESSION['user_id'])) {
@@ -54,9 +57,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     // Validation
     if (empty($name)) {
-        $error = $errors_translations[$language]['nameRequired'] ?? "Le nom est requis";
+        $error = $errors_translations[$language]['nameRequired'];
     } elseif (!is_numeric($qty) || $qty < 0) {
-        $error = $errors_translations[$language]['qtyInvalid'] ?? "La quantité doit être un nombre positif";
+        $error = $errors_translations[$language]['qtyInvalid'];
     } else {
         $updatedData = [
             "name" => $name,
@@ -74,7 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             header("Location: view.php?id=" . $id);
             exit();
         } else {
-            $error = $errors_translations[$language]['updateFailed'] ?? "Échec de la mise à jour";
+            $error = $errors_translations[$language]['updateFailed'];
         }
     }
 }
