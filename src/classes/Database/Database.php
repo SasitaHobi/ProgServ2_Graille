@@ -2,6 +2,7 @@
 
 namespace Database;
 
+//Création de la classe database utilisant PDO
 class Database implements DatabaseInterface
 {
     const DATABASE_CONFIGURATION_FILE = __DIR__ . '/../../config/database.ini';
