@@ -17,19 +17,13 @@ class UsersManager implements UsersManagerInterface
 
     public function getUser(): array
     {
-        // Définition de la requête SQL pour récupérer tous les utilisateurs
         $sql = "SELECT * FROM users";
 
-        // Préparation de la requête SQL
         $stmt = $this->database->getPdo()->prepare($sql);
-
-        // Exécution de la requête SQL
         $stmt->execute();
-
-        // Récupération de tous les utilisateurs
         $user = $stmt->fetchAll();
 
-        // Transformation des tableaux associatifs en objets user
+        // Transformation des tableaux associatifs en objets User
         $user = array_map(function ($userData) {
             return new User(
                 $userData['id'],
@@ -49,16 +43,10 @@ class UsersManager implements UsersManagerInterface
         // Définition de la requête SQL pour récupérer un utilisateur par ID
         $sql = "SELECT * FROM users WHERE id = :id";
 
-        // Préparation de la requête SQL
         $stmt = $this->database->getPdo()->prepare($sql);
 
-        // Lien avec le paramètre
         $stmt->bindValue(':id', $id);
-
-        // Exécution de la requête SQL
         $stmt->execute();
-
-        // Récupération de l'utilisateur
         $userData = $stmt->fetch();
 
         // Si l'utilisateur n'existe pas, retourner null

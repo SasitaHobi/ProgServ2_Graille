@@ -24,13 +24,13 @@ $username = $config['username'];
 $password = $config['password'];
 
 
-// Si l'utilisateur est déjà connecté, le rediriger vers l'accueil
+// Si l'utilisateur est déjà connecté, le rediriger vers son gestionnaire d'aliments
 if (isset($_SESSION['user_id'])) {
     header('Location: ../food/index.php');
     exit();
 }
 
-// Initialise les variables
+// Initialise la variable contenant les erreurs
 $error = '';
 
 

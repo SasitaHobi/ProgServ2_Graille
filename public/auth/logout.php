@@ -9,7 +9,6 @@ require_once __DIR__ . '/../assets/translations.php';
 require_once __DIR__ . '/../assets/language.php';
 
 
-
 // Vérifie si l'utilisateur est authentifié
 $userId = $_SESSION['user_id'] ?? null;
 
@@ -22,6 +21,7 @@ if (!$userId) {
 // Détruit la session
 session_unset();
 session_destroy();
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">

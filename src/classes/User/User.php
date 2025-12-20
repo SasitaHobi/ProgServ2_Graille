@@ -4,13 +4,12 @@ namespace User;
 
 class User implements UserInterface
 {
-    // Propriétés privées pour assurer l'encapsulation
-
     public const ROLE = [
         'user',
         'admin',
     ];
 
+    // Propriétés privées pour assurer l'encapsulation
     private ?int $id;
     private string $username;
     private string $email;
@@ -30,7 +29,6 @@ class User implements UserInterface
             throw new \InvalidArgumentException("Le mot de passe doit contenir au moins 8 caractères.");
         }
 
-
         // Initialisation des propriétés
         $this->id = $id;
         $this->username = $username;
@@ -49,6 +47,7 @@ class User implements UserInterface
     {
         return $this->username;
     }
+    
     public function getEmail(): string
     {
         return $this->email;

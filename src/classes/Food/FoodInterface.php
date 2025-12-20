@@ -4,7 +4,7 @@ namespace Food;
 
 use DateTime;
 
-// Interface définissant les infos et méthodes de bases d'un aliment
+// Interface définissant les infos et méthodes de base d'un aliment
 interface FoodInterface
 {
     public function getId(): ?int;

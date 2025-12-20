@@ -17,11 +17,12 @@ if (!isset($_SESSION['user_id'])) {
     header('Location: ../auth/login.php');
     exit();
 }
+
 $user_id = $_SESSION['user_id'];
 
-// Vérifie si l'utilisateur a le bon rôle
+// Vérifie si l'utilisateur est admin
 if ($_SESSION['role'] === 'admin') {
-    // Redirige vers la page admin.php si l'utilisateur est admin
+    // Redirige vers la page admin.php 
     header('Location: ../admin.php');
     exit();
 }

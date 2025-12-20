@@ -3,7 +3,7 @@
 // Démarre la session
 session_start();
 
-// Constantes et liens
+// liens
 require __DIR__ . '/../../src/utils/autoloader.php';
 require_once __DIR__ . '/../assets/translations.php';
 require_once __DIR__ . '/../assets/language.php';
@@ -11,6 +11,7 @@ require_once __DIR__ . '/../assets/language.php';
 use Food\FoodManager;
 use Food\Food;
 
+$foodManager = new FoodManager();
 
 // Vérifie si l'utilisateur est authentifié
 if (!isset($_SESSION['user_id'])) {
@@ -18,9 +19,8 @@ if (!isset($_SESSION['user_id'])) {
     header('Location: auth/login.php');
     exit();
 }
-$user_id = $_SESSION['user_id'];
 
-$foodManager = new FoodManager();
+$user_id = $_SESSION['user_id'];
 
 // On vérifie si l'ID de l'aliment est passé dans l'URL
 if (isset($_GET["id"])) {

@@ -2,7 +2,7 @@
 // Démarre la session
 session_start();
 
-// Constantes et liens
+// liens
 require __DIR__ . '/../../src/utils/autoloader.php';
 require_once __DIR__ . '/../assets/translations.php';
 require_once __DIR__ . '/../assets/language.php';
@@ -17,6 +17,7 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
+// déclaration des variables
 $user_id = $_SESSION['user_id'];
 $admin_id = 1;
 $foodManager = new FoodManager();
@@ -39,7 +40,7 @@ if (!$food) {
     exit();
 }
 
-// si l'aliment n'appartient pas à l'utilisateur connecté et qu'il n'est pas l'admin
+// si l'aliment n'appartient pas à l'utilisateur connecté et que l'utilisateur n'est pas l'admin
 if (isset($food) && $food->getUserId() !== $user_id && $user_id !== $admin_id) {
     header("Location: index.php");
     exit();
@@ -73,6 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         // Mise à jour dans la base de données
         $success = $foodManager->updateFood($id, $updatedData);
 
+        // si le changement a marché, on redirige vers la page view de l'aliment
         if ($success) {
             header("Location: view.php?id=" . $id);
             exit();

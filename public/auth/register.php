@@ -1,4 +1,5 @@
 <?php
+
 // Démarre la session
 session_start();
 
@@ -19,14 +20,8 @@ const DATABASE_FILE = __DIR__ . '/../users.db';
 $error = '';
 $success = '';
 
-if ($success) {
-    header('Location: ../food/index.php');
-    exit();
-}
-
 // Connexion à la base de données
 $config = parse_ini_file(DATABASE_CONFIGURATION_FILE, true);
-
 
 if (!$config) {
     throw new Exception("Erreur lors de la lecture du fichier de configuration : " . DATABASE_CONFIGURATION_FILE);

@@ -3,12 +3,10 @@
 // Démarre la session
 session_start();
 
-// Constantes et liens
+// liens
 require __DIR__ . '/../src/utils/autoloader.php';
 require_once __DIR__ . '/assets/translations.php';
 require_once __DIR__ . '/assets/language.php';
-
-
 
 // Vérifie si l'utilisateur est authentifié
 if (!isset($_SESSION['user_id'])) {

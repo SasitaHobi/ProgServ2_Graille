@@ -23,12 +23,11 @@ $password = $config['password'];
 
 // Vérifie si l'utilisateur est authentifié
 if (!isset($_SESSION['user_id'])) {
-    // Redirige vers la page de connexion si l'utilisateur n'est pas connecté
+    // Redirige vers la page de connexion si l'utilisateur n'est pas authentifié
     header('Location: ../auth/login.php');
     exit();
 }
 $user_id = $_SESSION['user_id'];
-
 
 $pdo = new PDO("mysql:host=$host;port=$port;charset=utf8mb4", $username, $password);
 
@@ -69,18 +68,14 @@ $sql = "CREATE TABLE IF NOT EXISTS food (
 );";
 
 $stmt = $pdo->prepare($sql);
-
 $stmt->execute();
 
 // Définition de la requête SQL pour récupérer tous les aliments
 $sql = "SELECT * FROM food";
 $stmt = $pdo->prepare($sql);
 
-
 $stmt->execute();
-
 $food = $stmt->fetchAll();
-
 ?>
 
 

@@ -11,7 +11,6 @@ interface UserInterface
     public function getRole(): string;
     public function getPassword(): string;
 
-
     public function setId(int $id): void;
     public function setUsername(string $username): void;
 }

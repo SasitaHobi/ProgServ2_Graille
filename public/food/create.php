@@ -76,7 +76,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $errors[] = $error_translation[$language]['createName'];
     }
 
-
     if (!empty($shop) && strlen($shop) < 2) {
         $errors[] = $error_translation[$language]['createShop'];
     }
@@ -98,8 +97,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     // Code à utiliser si nous voulons interdire les dates de péremption dans le passé,
-    // mais nous avons décidé qu'un utilisateur avait le droit de rajouter ses vielles 
-    // boîtes de conserves aussi, pour se souvenir de les utiliser
+    // mais nous avons décidé qu'un utilisateur avait le droit de rajouter ses vieilles 
+    // boîtes de conserves aussi, pour se souvenir de les utiliser.
 
     // if (!empty($peremption)) {
     //     $peremptionDate = new DateTime($peremption);
@@ -143,7 +142,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         if (!empty($shop)) {
             $shopParam = $shop; // si shop n'est pas vide, on prend sa valeur
         } else {
-            $shopParam = null;  // si shop est vide, on met NULL pour la base
+            $shopParam = null;  // si shop est vide, on met NULL 
         }
         $stmt->bindValue(':shop', $shopParam, PDO::PARAM_STR);
 
@@ -151,10 +150,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $stmt->bindValue(':unit', $unit);
         $stmt->bindValue(':spot', $spot);
 
-
         $stmt->execute();
 
-        // Redirection vers la page d'accueil avec tous les aliments
+        // Redirection vers le gestionnaire d'aliments
         header("Location: index.php");
         exit();
     }

@@ -20,13 +20,9 @@ class FoodManager implements FoodManagerInterface
         // Définition de la requête SQL pour récupérer tous les aliments
         $sql = "SELECT * FROM food";
 
-        // Préparation de la requête SQL
+        // requête SQL
         $stmt = $this->database->getPdo()->prepare($sql);
-
-        // Exécution de la requête SQL
         $stmt->execute();
-
-        // Récupération de tous les aliments
         $food = $stmt->fetchAll();
 
         // Transformation des tableaux associatifs en objets Food
@@ -52,13 +48,9 @@ class FoodManager implements FoodManagerInterface
         // Définition de la requête SQL pour récupérer un aliment par ID
         $sql = "SELECT * FROM food WHERE id = :id";
 
-        // Préparation de la requête SQL
+        // requête SQL
         $stmt = $this->database->getPdo()->prepare($sql);
-
-        // Lien avec le paramètre
         $stmt->bindValue(':id', $id);
-
-        // Exécution de la requête SQL
         $stmt->execute();
 
         // Récupération de l'aliment
@@ -152,7 +144,6 @@ class FoodManager implements FoodManagerInterface
         $stmt->bindValue(':id', $id);
 
         $stmt->execute();
-
 
         // Retourne true si au moins 1 ligne a été modifiée
         return $stmt->rowCount() > 0;

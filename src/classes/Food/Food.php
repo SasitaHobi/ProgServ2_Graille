@@ -6,8 +6,6 @@ use DateTime;
 
 class Food implements FoodInterface
 {
-    // Propriétés privées pour assurer l'encapsulation
-
     public const UNIT = [
         'pack' => 'Paquet',
         'piece' => 'Pièce',
@@ -23,7 +21,7 @@ class Food implements FoodInterface
         'cellar' => 'Cave'
     ];
 
-
+    // Propriétés privées pour assurer l'encapsulation
     private ?int $id;
     private int $userId;
     private string $name;
@@ -36,19 +34,16 @@ class Food implements FoodInterface
     // Constructeur pour initialiser l'objet
     public function __construct(?int $id, int $userId, string $name, DateTime $peremption, ?string $shop, float $qty, string $unit, string $spot)
     {
-
         // Vérification des données
         if (strlen($name) < 2) {
             throw new \InvalidArgumentException("Le nom doit contenir au moins 2 caractères.");
         }
-
 
         if (!filter_var($qty, FILTER_VALIDATE_FLOAT)) {
             throw new \InvalidArgumentException("Un prix valide est requis.");
         } else if ($qty < 0) {
             throw new \InvalidArgumentException("Le prix doit être un nombre positif.");
         }
-
 
         // Initialisation des propriétés
         $this->id = $id;

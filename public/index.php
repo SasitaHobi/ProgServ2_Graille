@@ -30,7 +30,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['language'])) {
     header('Location: index.php');
     exit;
 }
-
 ?>
 
 
@@ -49,7 +48,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['language'])) {
 
 <body>
 
-    <!-- préférence de langue -->
     <header>
         <a href="auth/login.php">
             <button type="button"><?= $text_translations[$language]['registerLogin'] ?></button>
@@ -61,6 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['language'])) {
             <button type="button"><?= $text_translations[$language]['registerLogout'] ?></button>
         </a>
 
+        <!-- préférence de langue -->
         <form method="POST">
             <label for="language">
                 <?= $text_translations[$language]['language'] ?? "Langue" ?>

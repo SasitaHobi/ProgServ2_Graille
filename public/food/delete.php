@@ -7,6 +7,8 @@ session_start();
 require __DIR__ . '/../../src/utils/autoloader.php';
 require_once __DIR__ . '/../assets/translations.php';
 require_once __DIR__ . '/../assets/language.php';
+use Food\FoodManager;
+$foodManager = new FoodManager();
 
 
 // Vérifie si l'utilisateur est authentifié
@@ -18,11 +20,7 @@ if (!isset($_SESSION['user_id'])) {
 $user_id = $_SESSION['user_id'];
 
 
-//Suppression de l'aliment choisi
-use Food\FoodManager;
-
-$foodManager = new FoodManager();
-
+// Suppression de l'aliment choisi
 if (isset($_GET["id"])) {
     $foodId = $_GET["id"];
 
