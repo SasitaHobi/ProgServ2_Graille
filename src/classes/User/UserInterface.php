@@ -2,7 +2,7 @@
 
 namespace User;
 
-// Définition des infos debase d'un utilisateur
+// Définition des infos de base d'un utilisateur
 interface UserInterface
 {
     public function getId(): ?int;
