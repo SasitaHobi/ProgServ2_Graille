@@ -73,27 +73,27 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // vérifications
 
     if (empty($name) || strlen($name) < 2) {
-        $errors[] = $error_translation[$language]['createName'];
+        $errors[] = $error_translations[$language]['createName'];
     }
 
     if (!empty($shop) && strlen($shop) < 2) {
-        $errors[] = $error_translation[$language]['createShop'];
+        $errors[] = $error_translations[$language]['createShop'];
     }
 
     if ($qty < 0) {
-        $errors[] = $error_translation[$language]['createQty'];
+        $errors[] = $error_translations[$language]['createQty'];
     }
 
     if (empty($unit)) {
-        $errors[] = $error_translation[$language]['createUnit'];
+        $errors[] = $error_translations[$language]['createUnit'];
     }
 
     if (empty($spot)) {
-        $errors[] = $error_translation[$language]['createSpot'];
+        $errors[] = $error_translations[$language]['createSpot'];
     }
 
     if (empty($peremption)) {
-        $errors[] = $error_translation[$language]['createPeremption'];
+        $errors[] = $error_translations[$language]['createPeremption'];
     }
 
     // Code à utiliser si nous voulons interdire les dates de péremption dans le passé,
