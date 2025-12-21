@@ -125,7 +125,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <input type="date" name="peremption" id="peremption" value="<?= htmlspecialchars($food->getPeremption()->format('Y-m-d')) ?>" />
 
             <label for="shop"><?= $att_translations[$language]['shop'] ?></label>
-            <input type="text" name="shop" id="shop" value="<?= htmlspecialchars($food->getShop() ?? '') ?>" />
+            <!-- pour éviter une erreur "deprecated string" quand l'utilisateur ne rentre pas de shop -->
+            <?php $shopValue = $food->getShop() ?? ''; ?>
+            <input type="text" name="shop" id="shop" value="<?= htmlspecialchars($shopValue) ?>" />
 
             <label for="qty"><?= $att_translations[$language]['qty'] ?></label>
             <input type="number" name="qty" id="qty" value="<?= htmlspecialchars($food->getQty()) ?>" min="0" required />
