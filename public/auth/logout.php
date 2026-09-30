@@ -26,12 +26,12 @@ session_destroy();
 <!DOCTYPE html>
 <html lang="fr">
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
-    <title><?= $text_translations[$language]['logoutTitle'] ?></title>
-</head>
+<?php
+// Affiche le head commun avec le titre de la page de déconnexion.
+render('head', [
+    'title' => $text_translations[$language]['logoutTitle'],
+]);
+?>
 
 <body>
     <main class="container">

@@ -7,6 +7,7 @@ session_start();
 const DATABASE_CONFIGURATION_FILE = __DIR__ . '/../src/config/database.ini';
 require_once __DIR__ . '/assets/translations.php';
 require_once __DIR__ . '/assets/language.php';
+require __DIR__ . '/../src/utils/autoloader.php';
 
 // Connexion à la base de données
 $config = parse_ini_file(DATABASE_CONFIGURATION_FILE, true);
@@ -82,15 +83,14 @@ $food = $stmt->fetchAll();
 <!DOCTYPE html>
 <html lang="fr">
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="color-scheme" content="light dark">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
-    <link rel="stylesheet" href="css/custom.css">
-
-    <title><?= $text_translations[$language]['adminTitle'] ?></title>
-</head>
+<?php
+// Affiche le head commun avec les paramètres utilisés par la page admin.
+render('head', [
+    'title' => $text_translations[$language]['adminTitle'],
+    'colorScheme' => true,
+    'customCss' => true,
+]);
+?>
 
 <body>
 

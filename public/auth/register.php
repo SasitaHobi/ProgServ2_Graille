@@ -146,12 +146,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!DOCTYPE html>
 <html lang="fr">
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
-    <title><?= $text_translations[$language]['registerTitle'] ?></title>
-</head>
+<?php
+// Affiche le head commun avec le titre de la page d'inscription.
+render('head', [
+    'title' => $text_translations[$language]['registerTitle'],
+]);
+?>
 
 <body>
 
