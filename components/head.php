@@ -8,10 +8,8 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
 
-    <?php if ($customCss ?? false) { ?>
-        <link rel="stylesheet" href="/assets/custom.css">
-    <?php } ?>
-
+    <link rel="stylesheet" href="/assets/custom.css">
+   
     <!--
         Le titre est transmis par la page avec render().
         Si aucun titre n'est transmis, "Graille" est utilisé par défaut.

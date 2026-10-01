@@ -12,9 +12,10 @@ body {
 
 /* Footer de la plateforme */
 .footer {
+    margin-top: auto;
+    padding: 1rem;
+
     text-align: center;
     font-size: 0.8rem;
-    margin-top: 2rem;
-    padding: 1rem;
     opacity: 0.6;
 }
