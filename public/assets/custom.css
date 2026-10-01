@@ -3,6 +3,13 @@ form button {
 	width: 100%;
 }
 
+/* Permet de garder le footer en bas de la page */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
 /* Footer de la plateforme */
 .footer {
     text-align: center;
