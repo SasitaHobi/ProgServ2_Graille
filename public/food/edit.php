@@ -89,30 +89,22 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <!DOCTYPE html>
 <html lang="fr">
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="color-scheme" content="light dark">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
-
-    <title><?= $text_translations[$language]['editTitle'] ?></title>
-</head>
+<?php
+// Affiche le head commun avec les paramètres de la page de modification.
+render('head', [
+    'title' => $text_translations[$language]['editTitle'],
+    'colorScheme' => true,
+]);
+?>
 
 <body>
-
-    <header>
-        <a href="../index.php">
-            <button type="button"><?= $text_translations[$language]['logoutBack'] ?></button>
-        </a>
-
-        <a href="index.php">
-            <button type="button"><?= $text_translations[$language]['homeButton'] ?></button>
-        </a>
-
-        <a href="../auth/logout.php">
-            <button type="button"><?= $text_translations[$language]['registerLogout'] ?></button>
-        </a>
-    </header>
+    <?php
+    // Affiche le header commun aux pages de gestion des aliments.
+    render('header', [
+        'text_translations' => $text_translations,
+        'language' => $language,
+    ]);
+    ?>
 
     <main class="container">
         <h1><?= $text_translations[$language]['editTitle'] ?></h1>
@@ -160,6 +152,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             </div>
         </form>
     </main>
+    <?php
+    // Affiche le footer commun de la plateforme.
+    render('footer');
+    ?>
 </body>
 
 </html>

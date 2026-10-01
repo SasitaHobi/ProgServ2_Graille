@@ -2,3 +2,20 @@
 form button {
 	width: 100%;
 }
+
+/* Permet de garder le footer en bas de la page */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Footer de la plateforme */
+.footer {
+    margin-top: auto;
+    padding: 1rem;
+
+    text-align: center;
+    font-size: 0.8rem;
+    opacity: 0.6;
+}

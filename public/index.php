@@ -36,15 +36,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['language'])) {
 <!DOCTYPE html>
 <html lang="fr">
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="color-scheme" content="light dark">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
-    <link rel="stylesheet" href="css/custom.css">
-
-    <title><?= $text_translations[$language]['homeTitle'] ?></title>
-</head>
+<?php
+render('head', [
+    'title' => $text_translations[$language]['homeTitle'],
+    'colorScheme' => true,
+    'customCss' => true,
+]);
+?>
 
 <body>
 
@@ -86,6 +84,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['language'])) {
 
         <p><a href="food/index.php"><button><?= $text_translations[$language]['homeButton'] ?></button></a></p>
     </main>
+    <?php
+    // Affiche le footer commun de la plateforme.
+    render('footer');
+    ?>
 </body>
 
 </html>

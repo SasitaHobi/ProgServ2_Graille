@@ -23,12 +23,12 @@ http_response_code(403);
 <!DOCTYPE html>
 <html lang="fr">
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
-    <title><?= $text_translations[$language]['403Title'] ?> ></title>
-</head>
+<?php
+// Affiche le head commun avec le titre de la page 403.
+render('head', [
+    'title' => $text_translations[$language]['403Title'],
+]);
+?>
 
 <body>
     <main class="container">
@@ -38,6 +38,10 @@ http_response_code(403);
 
         <p><a href="index.php"><?= $text_translations[$language]['403Back'] ?></a></p>
     </main>
+    <?php
+    // Affiche le footer commun de la plateforme.
+    render('footer');
+    ?>
 </body>
 
 </html>

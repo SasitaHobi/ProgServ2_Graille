@@ -162,30 +162,25 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <!DOCTYPE html>
 <html>
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="color-scheme" content="light dark">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
-
-    <title><?= $text_translations[$language]['createTitle'] ?></title>
-</head>
+<?php
+// Affiche le head commun avec les paramètres de la page de création.
+render('head', [
+    'title' => $text_translations[$language]['createTitle'],
+    'colorScheme' => true,
+]);
+?>
 
 <body>
-    <header>
-        <a href="../index.php">
-            <button type="button"><?= $text_translations[$language]['logoutBack'] ?></button>
-        </a>
 
-        <a href="index.php">
-            <button type="button"><?= $text_translations[$language]['homeButton'] ?></button>
-        </a>
-
-        <a href="../auth/logout.php">
-            <button type="button"><?= $text_translations[$language]['registerLogout'] ?></button>
-        </a>
-
-    </header>
+    <?php
+    // Affiche le header commun aux pages de gestion des aliments.
+    // Les traductions et la langue sont transmises au composant
+    // pour qu'il puisse afficher les textes des boutons.
+    render('header', [
+        'text_translations' => $text_translations,
+        'language' => $language,
+    ]);
+    ?>
 
     <main class="container">
         <h1><?= $text_translations[$language]['createH1'] ?></h1>
@@ -237,6 +232,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <button type="submit"><?= $text_translations[$language]['createH1'] ?></button>
         </form>
     </main>
+    <?php
+    // Affiche le footer commun de la plateforme.
+    render('footer');
+    ?>
 </body>
 
 </html>
