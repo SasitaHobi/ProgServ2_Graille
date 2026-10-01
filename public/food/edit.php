@@ -152,6 +152,10 @@ render('head', [
             </div>
         </form>
     </main>
+    <?php
+    // Affiche le footer commun de la plateforme.
+    render('footer');
+    ?>
 </body>
 
 </html>

@@ -2,3 +2,12 @@
 form button {
 	width: 100%;
 }
+
+/* Footer de la plateforme */
+.footer {
+    text-align: center;
+    font-size: 0.8rem;
+    margin-top: 2rem;
+    padding: 1rem;
+    opacity: 0.6;
+}

@@ -48,6 +48,10 @@ render('head', [
         </a>
 
     </main>
+    <?php
+    // Affiche le footer commun de la plateforme.
+    render('footer');
+    ?>
 </body>
 
 </html>

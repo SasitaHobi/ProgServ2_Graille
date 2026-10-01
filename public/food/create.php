@@ -232,6 +232,10 @@ render('head', [
             <button type="submit"><?= $text_translations[$language]['createH1'] ?></button>
         </form>
     </main>
+    <?php
+    // Affiche le footer commun de la plateforme.
+    render('footer');
+    ?>
 </body>
 
 </html>

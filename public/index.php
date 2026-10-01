@@ -84,6 +84,10 @@ render('head', [
 
         <p><a href="food/index.php"><button><?= $text_translations[$language]['homeButton'] ?></button></a></p>
     </main>
+    <?php
+    // Affiche le footer commun de la plateforme.
+    render('footer');
+    ?>
 </body>
 
 </html>

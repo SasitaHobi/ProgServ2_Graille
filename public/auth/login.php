@@ -109,6 +109,10 @@ render('head', [
 
         <p><a href="../index.php"><?= $text_translations[$language]['loginBack'] ?></a></p>
     </main>
+    <?php
+    // Affiche le footer commun de la plateforme.
+    render('footer');
+    ?> 
 </body>
 
 </html>

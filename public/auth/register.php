@@ -199,6 +199,10 @@ render('head', [
         <p><?= $text_translations[$language]['registerAccount'] ?><a href="login.php"><?= $text_translations[$language]['registerLogin'] ?></a></p>
 
     </main>
+    <?php
+    // Affiche le footer commun de la plateforme.
+    render('footer');
+    ?>
 </body>
 
 </html>

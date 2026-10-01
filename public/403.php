@@ -38,6 +38,10 @@ render('head', [
 
         <p><a href="index.php"><?= $text_translations[$language]['403Back'] ?></a></p>
     </main>
+    <?php
+    // Affiche le footer commun de la plateforme.
+    render('footer');
+    ?>
 </body>
 
 </html>

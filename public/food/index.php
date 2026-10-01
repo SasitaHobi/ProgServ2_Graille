@@ -143,6 +143,10 @@ render('head', [
             </tbody>
         </table>
     </main>
+    <?php
+    // Affiche le footer commun de la plateforme.
+    render('footer');
+    ?>
 </body>
 
 </html>
