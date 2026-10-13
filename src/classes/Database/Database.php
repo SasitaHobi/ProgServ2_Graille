@@ -45,8 +45,21 @@ class Database implements DatabaseInterface
             role VARCHAR(10) NOT NULL
         );";
 
+
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
+
+
+        //Création du compte admin
+        $passwordAdmin = password_hash('12345678', PASSWORD_DEFAULT);
+
+        $stmt = $this->pdo->prepare('INSERT IGNORE INTO users (username,email, password, role) VALUES (:username, :email, :password, :role)');
+                $stmt->execute([
+                    'username' => 'admin',
+                    'email' => 'admin@sasita.ch',
+                    'password' => $passwordAdmin,
+                    'role' => 'admin' 
+                ]);
 
 
         // Création de la table `food` si elle n'existe pas
